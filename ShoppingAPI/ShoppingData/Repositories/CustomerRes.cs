@@ -45,7 +45,7 @@ namespace ShoppingData.Repositories
             }
             return res;
         }
-
+        //get customer
         public Response GetCustomer()
         {
             try
