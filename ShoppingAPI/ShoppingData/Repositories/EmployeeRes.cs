@@ -1,4 +1,5 @@
-﻿using ShoppingContext.Model;
+﻿using Microsoft.IdentityModel.Tokens;
+using ShoppingContext.Model;
 using ShoppingData.Interfaces;
 using ShoppingShare.ViewModel;
 using ShoppingShare.ViewModel.Customer;
@@ -48,6 +49,7 @@ namespace ShoppingData.Repositories
                 emp.Email = input.Email;
                 emp.CreateDate = DateTime.Now;
                 emp.RoleId = input.RoleId;
+                emp.Address = input.Address;
                 emp.Password = "123";
                 emp.Image = input.Image;
                 emp.Status = true;
@@ -85,6 +87,7 @@ namespace ShoppingData.Repositories
                     result.Image = input.Image;
                     result.RoleId = input.RoleId;
                     result.Status = input.Status;
+                    result.Address = input.Address;
                     _db.SaveChanges();
                     res.Message = "Cập nhật thành công";
                     res.Success = true;
@@ -94,6 +97,32 @@ namespace ShoppingData.Repositories
             {
                 res.Success = false;
                 res.Message = ex.Message;
+            }
+            return res;
+        }
+
+        public Response GetEmployeeById(Guid idEmployee)
+        {
+            try
+            {
+                var result = (from x in _db.Employees
+                              where x.IdEmployee == idEmployee
+                              select x).FirstOrDefault();
+                if (result == null)
+                {
+                    res.Message = "Nhân viên không tồn tại !";
+                    res.Success = false;
+                }
+                else
+                {
+                    res.Data = result;
+                    res.Success = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                res.Message = ex.Message;
+                res.Success = false;
             }
             return res;
         }

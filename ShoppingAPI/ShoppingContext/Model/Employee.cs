@@ -14,6 +14,7 @@ namespace ShoppingContext.Model
         public string Password { get; set; }
         public string Phone { get; set; }
         public string Image { get; set; }
+        public string Address { get;set; }
         public DateTime CreateDate { get; set; }
         public bool Status { get; set; }
         public bool IsDelete { get; set; }

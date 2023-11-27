@@ -42,5 +42,12 @@ namespace ShoppingAPI.Controllers
             res = employee.UpdateEmployee(model);
             return Ok(res);
         }
+        [HttpGet]
+        [Route("getEmployeeById")]
+        public object UpdateEmployee(Guid idEmployee)
+        {
+            res = employee.GetEmployeeById(idEmployee);
+            return Ok(res);
+        }
     }
 }
