@@ -1,13 +1,47 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using ShoppingContext.Model;
 using ShoppingData.Interfaces;
 using ShoppingData.Repositories;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 
 builder.Services.AddScoped<ICustomer, CustomerRes>();
+builder.Services.AddScoped<IPayment, PaymentRes>();
+builder.Services.AddScoped<IAuthentication, AuthenticationRes>();
+builder.Services.AddScoped<IEmployee, EmployeeRes>();
+
+// Configure JWT Authentication
+var key = builder.Configuration["SecretKey:Key"];
+var keyByte = Encoding.UTF8.GetBytes(key);
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = false,
+        ValidateAudience = false,
+
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(keyByte),
+
+        ClockSkew = TimeSpan.Zero
+    };
+});
+
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
 
 // Add your database context configuration here
 builder.Services.AddDbContext<ShopContext>(options =>
@@ -27,7 +61,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseCors();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

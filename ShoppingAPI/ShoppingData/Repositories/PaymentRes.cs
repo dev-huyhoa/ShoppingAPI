@@ -34,7 +34,7 @@ namespace ShoppingData.Repositories
             catch(Exception ex) 
             {
                 res.Success = false;
-                res.Messsage = ex.Message;
+                res.Message = ex.Message;
             }
             return res;
 
@@ -48,11 +48,11 @@ namespace ShoppingData.Repositories
                               select x).ToList(); 
                 res.Data = result;  
                 res.Success = true;
-                res.Messsage = "";
+                res.Message = "";
             }
             catch(Exception ex) 
             {
-                res.Messsage = ex.Message;
+                res.Message = ex.Message;
             }
             return res;
         }
