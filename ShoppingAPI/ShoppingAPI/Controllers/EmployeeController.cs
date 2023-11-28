@@ -44,7 +44,7 @@ namespace ShoppingAPI.Controllers
         }
         [HttpGet]
         [Route("getEmployeeById")]
-        public object UpdateEmployee(Guid idEmployee)
+        public object GetEmployeeById(Guid idEmployee)
         {
             res = employee.GetEmployeeById(idEmployee);
             return Ok(res);

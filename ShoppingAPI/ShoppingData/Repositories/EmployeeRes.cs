@@ -52,6 +52,7 @@ namespace ShoppingData.Repositories
                 emp.Address = input.Address;
                 emp.Password = "123";
                 emp.Image = input.Image;
+                emp.Phone = input.Phone;
                 emp.Status = true;
                 _db.Employees.Add(emp);
                 _db.SaveChanges();
