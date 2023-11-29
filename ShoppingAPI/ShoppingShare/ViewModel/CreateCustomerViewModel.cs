@@ -8,6 +8,7 @@ namespace ShoppingShare.ViewModel
 {
     public class CreateCustomerViewModel
     {
+        public Guid IdCustomer { get; set; }
         public string NameCustomer { get; set; }
         public string Email { get; set; }
         public string PassWord { get; set; }
@@ -15,5 +16,6 @@ namespace ShoppingShare.ViewModel
         public string Address { get; set; }
         public string Image { get; set; }
         public DateTime BirthDay { get; set; }
+        
     }
 }

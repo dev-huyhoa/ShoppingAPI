@@ -35,7 +35,7 @@ namespace ShoppingData.Repositories
                 cus.CreateDate = DateTime.Now;
                 _db.Add(cus);
                 _db.SaveChanges();
-
+                res.Message = "Thêm mới thành công ";
                 res.Success = true;
             }
             catch (Exception ex)
@@ -60,6 +60,40 @@ namespace ShoppingData.Repositories
             catch (Exception ex)
             {
                 res.Success = false;
+                res.Message = ex.Message;
+            }
+            return res;
+        }
+
+        public Response UpdateCustomer(CreateCustomerViewModel input)
+        {
+            try
+            {
+                var result = (from x in _db.Customers
+                              where x.IdCustomer == input.IdCustomer
+                              select x).FirstOrDefault();
+                if(result == null)
+                {
+                    res.Message = "Không tìm thấy khách hàng!";
+                    res.Success = false;
+                }
+                else
+                {
+                    result.Address = input.Address;
+                    result.NameCustomer = input.NameCustomer;
+                    result.PassWord = input.PassWord;  
+                    result.Email = input.Email;
+                    result.Phone = input.Phone;    
+                    result.BirthDay = input.BirthDay;
+                    result.Image = input.Image;
+                    _db.SaveChanges();
+                    res.Message = "Cập nhật thành công";
+                    res.Success = true;
+
+                }
+            }
+            catch(Exception ex)
+            {
                 res.Message = ex.Message;
             }
             return res;

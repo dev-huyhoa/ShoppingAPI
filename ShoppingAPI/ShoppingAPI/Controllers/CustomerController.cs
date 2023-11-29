@@ -34,5 +34,13 @@ namespace ShoppingAPI.Controllers
             res = customer.CreateCustomer(model);
             return Ok(res);
         }
+
+        [HttpPost]
+        [Route("updateCustomer")]
+        public object UpdateCustomer(CreateCustomerViewModel model)
+        {
+            res = customer.UpdateCustomer(model);
+            return Ok(res);
+        }
     }
 }

@@ -11,5 +11,6 @@ namespace ShoppingData.Interfaces
     {
         Response GetCustomer();
         Response CreateCustomer(CreateCustomerViewModel input);
+        Response UpdateCustomer(CreateCustomerViewModel input);
     }
 }
