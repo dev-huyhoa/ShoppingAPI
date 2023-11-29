@@ -6,10 +6,11 @@ using ShoppingShare.ViewModel.Customer;
 
 namespace ShoppingAPI.Controllers
 {
+    [ApiController]
     [Route("api/[controller]")]
     public class EmployeeController : Controller
     {
-        private IEmployee employee;
+        private readonly IEmployee employee;
         private Response res;
 
         public EmployeeController(IEmployee _employee)
@@ -28,12 +29,11 @@ namespace ShoppingAPI.Controllers
 
         [HttpPost]
         [Route("createEmployee")]
-        public object Get(CreateUpdateEmpViewModel model)
+        public object Create(CreateUpdateEmpViewModel model)
         {
             res = employee.CreateEmployee(model);
             return Ok(res);
         }
-
 
         [HttpPost]
         [Route("updateEmployee")]
@@ -42,11 +42,20 @@ namespace ShoppingAPI.Controllers
             res = employee.UpdateEmployee(model);
             return Ok(res);
         }
+
         [HttpGet]
         [Route("getEmployeeById")]
         public object GetEmployeeById(Guid idEmployee)
         {
             res = employee.GetEmployeeById(idEmployee);
+            return Ok(res);
+        }
+
+        [HttpDelete]
+        [Route("deleteEmployee")]
+        public object Delete(Guid idEmployee)
+        {
+            res = employee.DeleteEmployee(idEmployee);
             return Ok(res);
         }
     }

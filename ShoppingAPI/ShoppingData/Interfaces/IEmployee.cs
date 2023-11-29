@@ -14,5 +14,7 @@ namespace ShoppingData.Interfaces
         Response CreateEmployee(CreateUpdateEmpViewModel input);
         Response UpdateEmployee(CreateUpdateEmpViewModel input);
         Response GetEmployeeById(Guid idEmployee);
+        Response DeleteEmployee(Guid idEmployee);
+
     }
 }

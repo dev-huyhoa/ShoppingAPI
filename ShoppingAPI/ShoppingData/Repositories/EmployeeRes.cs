@@ -84,7 +84,6 @@ namespace ShoppingData.Repositories
                     result.NameEmployee = input.NameEmployee;
                     result.Email = input.Email;
                     result.Phone = input.Phone;
-                    result.Password = input.Password;
                     result.Image = input.Image;
                     result.RoleId = input.RoleId;
                     result.Status = input.Status;
@@ -122,6 +121,35 @@ namespace ShoppingData.Repositories
             }
             catch (Exception ex)
             {
+                res.Message = ex.Message;
+                res.Success = false;
+            }
+            return res;
+        }
+
+        public Response DeleteEmployee(Guid idEmployee)
+        {
+            try
+            {
+                var emp = (from x in _db.Employees
+                              where x.IdEmployee == idEmployee
+                              select x).FirstOrDefault();
+                if (emp != null)
+                {
+                    emp.IsDelete = true;
+                    _db.SaveChanges();
+                    res.Message = "Xóa nhân viên thành công";
+                    res.Success = true;
+                }
+                else
+                {
+                    res.Message = "Không tìm thấy nhân viên !";
+                    res.Success = false;
+                }
+            }
+            catch (Exception ex)
+            {
+
                 res.Message = ex.Message;
                 res.Success = false;
             }
