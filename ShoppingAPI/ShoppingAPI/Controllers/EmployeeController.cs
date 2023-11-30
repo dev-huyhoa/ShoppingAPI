@@ -37,9 +37,9 @@ namespace ShoppingAPI.Controllers
 
         [HttpPost]
         [Route("updateEmployee")]
-        public object UpdateEmployee(CreateUpdateEmpViewModel model)
+        public object UpdateEmployee([FromForm] IFormFile file)
         {
-            res = employee.UpdateEmployee(model);
+            //res = employee.UpdateEmployee(model);
             return Ok(res);
         }
 
