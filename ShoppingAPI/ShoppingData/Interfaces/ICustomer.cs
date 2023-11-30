@@ -1,4 +1,5 @@
-﻿using ShoppingShare.ViewModel;
+﻿using ShoppingContext.Model;
+using ShoppingShare.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +13,6 @@ namespace ShoppingData.Interfaces
         Response GetCustomer();
         Response CreateCustomer(CreateCustomerViewModel input);
         Response UpdateCustomer(CreateCustomerViewModel input);
+        Response DeleteCustomer(Guid IdCustomer);
     }
 }

@@ -46,6 +46,34 @@ namespace ShoppingData.Repositories
             return res;
         }
 
+        public Response DeleteCustomer(Guid IdCustomer)
+        {
+            try
+            {
+                var result = (from x in _db.Customers
+                              where x.IdCustomer == IdCustomer
+                              select x).FirstOrDefault();
+                if(result == null)
+                {
+                    res.Message = "Không tìm thấy khách hàng!";
+                    res.Success= false;
+                }
+                else
+                {
+                    result.IsDelete = true;
+                    _db.SaveChanges();
+                    res.Message = "Xóa thành công khách hàng";
+                    res.Success= true;
+                }
+            }
+            catch (Exception ex)
+            {
+                res.Success=false;
+                res.Message = ex.Message;
+            }
+            return res;
+        }
+
         public Response GetCustomer()
         {
             try
