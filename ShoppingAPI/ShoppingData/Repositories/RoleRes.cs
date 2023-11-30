@@ -71,7 +71,9 @@ namespace ShoppingData.Repositories
         {
 			try
 			{
-                var role = (from x in _db.Roles select x).ToList();
+                var role = (from x in _db.Roles 
+                            where x.IsDelete == false
+                            select x).ToList();
                 res.Data = role;
                 res.Success = true;
 			}

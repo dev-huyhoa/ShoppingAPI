@@ -10,5 +10,6 @@ namespace ShoppingContext.Model
     {
         public int IdPayment { get; set; }
         public string Name { get; set; }
+        public bool IsDelete { get; set; }
     }
 }

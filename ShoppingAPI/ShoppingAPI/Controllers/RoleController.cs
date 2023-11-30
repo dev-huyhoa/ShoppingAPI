@@ -24,5 +24,29 @@ namespace ShoppingAPI.Controllers
             res = role.GetsRole();
             return Ok(res);
         }
+
+        [HttpPost]
+        [Route("createRole")]
+        public object CreateRole(Role model)
+        {
+            res = role.CreateRole(model);
+            return Ok(res);
+        }
+
+        [HttpPost]
+        [Route("updateRole")]
+        public object UpdateRole(Role model)
+        {
+            res = role.UpdateRole(model);
+            return Ok(res);
+        }
+
+        [HttpDelete]
+        [Route("deleteRole")]
+        public object DeleteRole(int IdRole)
+        {
+            res = role.DeleteRole(IdRole);
+            return Ok(res);
+        }
     }
 }

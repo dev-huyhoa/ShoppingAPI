@@ -42,5 +42,13 @@ namespace ShoppingAPI.Controllers
             res = customer.UpdateCustomer(model);
             return Ok(res);
         }
+
+        [HttpDelete]
+        [Route("deleteCustomer")]
+        public object DeleteCustomer(Guid IdCustomer)
+        {
+            res = customer.DeleteCustomer(IdCustomer);
+            return Ok(res);
+        }
     }
 }
