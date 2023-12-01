@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using ShoppingContext.Model;
 using ShoppingData.Interfaces;
 using ShoppingShare.ViewModel;
@@ -36,13 +37,22 @@ namespace ShoppingAPI.Controllers
         }
 
         [HttpPost]
-        [Route("updateEmployee")]
-        public object UpdateEmployee([FromForm] IFormFile file)
+        [Route("updateEmpImg")]
+        public object UpdateEmpImage([FromForm] ICollection<IFormFile> file)
         {
-            //res = employee.UpdateEmployee(model);
+            var modelData = Request.Form["resEmployeeData"];
+            CreateUpdateEmpViewModel model = JsonConvert.DeserializeObject<CreateUpdateEmpViewModel>(modelData);
+            res = employee.UpdateEmpImage(file, model);
             return Ok(res);
         }
 
+        [HttpPost]
+        [Route("updateEmployee")]
+        public object UpdateEmployee(CreateUpdateEmpViewModel model)
+        {
+            res = employee.UpdateEmployee(model);
+            return Ok(res);
+        }
         [HttpGet]
         [Route("getEmployeeById")]
         public object GetEmployeeById(Guid idEmployee)

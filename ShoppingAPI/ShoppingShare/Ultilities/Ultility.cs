@@ -72,87 +72,78 @@ namespace ShoppingShare.Ultilities
                 return 1;
             }
         }
+        public static string WriteFile(IFormFile file, string type, string idService)
+        {
+            int orderby = 1;
+            var folder = Directory.GetCurrentDirectory() + @"\wwwroot";
+            string path = Path.Combine(folder, "UploadsShopping");
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+
+            string pathType = Path.Combine(path, type);
+
+            if (!Directory.Exists(pathType))
+            {
+                Directory.CreateDirectory(pathType);
+            }
+
+            string pathId = Path.Combine(pathType, idService.ToString());
+
+            if (!Directory.Exists(pathId))
+            {
+                Directory.CreateDirectory(pathId);
+            }
+            var date = FormatDateToInt(DateTime.Now, "DDMMYYYY").ToString();
+
+            string pathDate = Path.Combine(pathId, date);
+            if (!Directory.Exists(pathDate))
+            {
+                Directory.CreateDirectory(pathDate);
+            }
+            //get file extension
+            //string[] str = file.FileName.Split('.');
+            string fileName = "";
+            if (orderby > 0)
+            {
+                fileName = orderby.ToString() + "_" + FormatDateToInt(DateTime.Now, "DDMMYYYYHHMMSS").ToString() + Path.GetExtension(file.FileName);
+            }
+            else
+            {
+                fileName = FormatDateToInt(DateTime.Now, "DDMMYYYYHHMMSS").ToString() + Path.GetExtension(file.FileName);
+            }
+            string fullpath = Path.Combine(pathDate, fileName);
+            string folderPath = "/Uploads/" + type + "/" + idService + "/" + date;
+            string serverPath = "/Uploads/" + type + "/" + idService + "/" + date + "/" + fileName;
+            if (Directory.Exists(fullpath))
+            {
+                System.IO.File.Delete(fullpath);
+
+            }
+            using (var stream = new FileStream(fullpath, FileMode.Create))
+            {
+                file.CopyTo(stream);
+            }
+            //up lên cloud
+            Account account = new Account(CLOUD_NAME, API_KEY, API_SECRET);
+            cloudinary = new Cloudinary(account);
+            string imagePath = Path.GetFullPath(fullpath);
+            return uploadImage(imagePath, folderPath);
+        }
+
         public static string uploadImage(string filePath, string folderPath)
         {
-            try
+            var uploadParams = new ImageUploadParams()
             {
-                var uploadParams = new ImageUploadParams()
-                {
-                    Folder = folderPath,
-                    File = new FileDescription(filePath),
-                    UseFilename = true
-                };
+                Folder = folderPath,
+                File = new FileDescription(filePath),
+                UseFilename = true
+            };
 
-                var uploadResult = cloudinary.Upload(uploadParams);
-                publicId = $"lia/Folder/{uploadResult.PublicId}";
-                return link = uploadResult.Uri.ToString();
-            }
-            catch (Exception e)
-            {
-                throw new Exception();
-            }
+            var uploadResult = cloudinary.Upload(uploadParams);
+            publicId = $"lia/Folder/{uploadResult.PublicId}";
+            return uploadResult.Uri.ToString();
         }
-
-        public static string WriteFile(IFormFile file, string idService)
-        {
-            try
-            {
-                var folder = Directory.GetCurrentDirectory() + @"\wwwroot";
-                string path = Path.Combine(folder, "Uploads");
-                if (!Directory.Exists(path))
-                {
-                    Directory.CreateDirectory(path);
-                }
-
-                string pathType = Path.Combine(path);
-
-                if (!Directory.Exists(pathType))
-                {
-                    Directory.CreateDirectory(pathType);
-                }
-
-                string pathId = Path.Combine(pathType, idService.ToString());
-
-                if (!Directory.Exists(pathId))
-                {
-                    Directory.CreateDirectory(pathId);
-                }
-                var date = Ultility.FormatDateToInt(DateTime.Now, "DDMMYYYY").ToString();
-
-                string pathDate = Path.Combine(pathId, date);
-                if (!Directory.Exists(pathDate))
-                {
-                    Directory.CreateDirectory(pathDate);
-                }
-                //get file extension
-                //string[] str = file.FileName.Split('.');
-                string fileName = "";
-                fileName = Ultility.FormatDateToInt(DateTime.Now, "DDMMYYYYHHMMSS").ToString() + Path.GetExtension(file.FileName);
-                string fullpath = Path.Combine(pathDate, fileName);
-                string folderPath = "/Uploads/" + idService + "/" + date;
-                string serverPath = "/Uploads/" + idService + "/" + date + "/" + fileName;
-                if (Directory.Exists(fullpath))
-                {
-                    System.IO.File.Delete(fullpath);
-
-                }
-                using (var stream = new FileStream(fullpath, FileMode.Create))
-                {
-                    file.CopyTo(stream);
-                }
-                //up lên cloud
-                Account account = new Account(CLOUD_NAME, API_KEY, API_SECRET);
-                cloudinary = new Cloudinary(account);
-                string imagePath = Path.GetFullPath(fullpath);
-                return uploadImage(imagePath, folderPath);
-                 
-            }
-            catch (Exception e)
-            {
-
-            }
-            return link;
-        }
-
     }
 }

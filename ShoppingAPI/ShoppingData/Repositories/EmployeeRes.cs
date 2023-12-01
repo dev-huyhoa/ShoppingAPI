@@ -1,6 +1,8 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.IdentityModel.Tokens;
 using ShoppingContext.Model;
 using ShoppingData.Interfaces;
+using ShoppingShare.Ultilities;
 using ShoppingShare.ViewModel;
 using ShoppingShare.ViewModel.Customer;
 using System;
@@ -8,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ShoppingData.Repositories
 {
@@ -88,6 +91,8 @@ namespace ShoppingData.Repositories
                     result.RoleId = input.RoleId;
                     result.Status = input.Status;
                     result.Address = input.Address;
+                    result.Image = input.Image;
+
                     _db.SaveChanges();
                     res.Message = "Cập nhật thành công";
                     res.Success = true;
@@ -152,6 +157,50 @@ namespace ShoppingData.Repositories
 
                 res.Message = ex.Message;
                 res.Success = false;
+            }
+            return res;
+        }
+
+        public Response UpdateEmpImage(ICollection<IFormFile> files, CreateUpdateEmpViewModel input)
+        {
+            try
+            {
+
+
+
+                var result = (from x in _db.Employees
+                              where x.IdEmployee == input.IdEmployee
+                              select x).FirstOrDefault();
+                if (result == null)
+                {
+                    res.Message = "Không tìm thấy nhân viên !";
+                    res.Success = false;
+                }
+                else
+                {
+                    result.NameEmployee = input.NameEmployee;
+                    result.Email = input.Email;
+                    result.Phone = input.Phone;
+                    result.Image = input.Image;
+                    result.RoleId = input.RoleId;
+                    result.Status = input.Status;
+                    result.Address = input.Address;
+                    result.Image = input.Image;
+
+                    foreach (var file in files)
+                    {
+                        result.Image = Ultility.WriteFile(file, "Employee", input.IdEmployee.ToString());
+                    }
+
+                    _db.SaveChanges();
+                    res.Message = "Cập nhật thành công";
+                    res.Success = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                res.Success = false;
+                res.Message = ex.Message;
             }
             return res;
         }
