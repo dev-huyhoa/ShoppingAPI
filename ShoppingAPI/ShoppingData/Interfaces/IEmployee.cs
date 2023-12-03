@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using ShoppingShare.ViewModel;
-using ShoppingShare.ViewModel.Customer;
+using ShoppingShare.ViewModel.Employee;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,9 +12,9 @@ namespace ShoppingData.Interfaces
     public interface IEmployee
     {
         Response GetsEmployee();
-        Response CreateEmployee(CreateUpdateEmpViewModel input);
-        Response UpdateEmployee(CreateUpdateEmpViewModel input);
-        Response UpdateEmpImage(ICollection<IFormFile> img, CreateUpdateEmpViewModel input);
+        Response CreateEmployee(CreateEmpViewModel input, ICollection<IFormFile> files);
+        Response UpdateEmployee(UpdateEmpViewModel input);
+        Response UpdateEmpImage(ICollection<IFormFile> img, UpdateEmpViewModel input);
 
         Response GetEmployeeById(Guid idEmployee);
         Response DeleteEmployee(Guid idEmployee);

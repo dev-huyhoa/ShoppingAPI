@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 using ShoppingContext.Model;
 using ShoppingData.Interfaces;
 using ShoppingShare.ViewModel;
-using ShoppingShare.ViewModel.Customer;
+using ShoppingShare.ViewModel.Employee;
 
 namespace ShoppingAPI.Controllers
 {
@@ -30,9 +30,11 @@ namespace ShoppingAPI.Controllers
 
         [HttpPost]
         [Route("createEmployee")]
-        public object Create(CreateUpdateEmpViewModel model)
+        public object Create([FromForm] ICollection<IFormFile> file)
         {
-            res = employee.CreateEmployee(model);
+            var modelData = Request.Form["resEmployeeData"];
+            CreateEmpViewModel model = JsonConvert.DeserializeObject<CreateEmpViewModel>(modelData);
+            res = employee.CreateEmployee(model, file);
             return Ok(res);
         }
 
@@ -41,14 +43,14 @@ namespace ShoppingAPI.Controllers
         public object UpdateEmpImage([FromForm] ICollection<IFormFile> file)
         {
             var modelData = Request.Form["resEmployeeData"];
-            CreateUpdateEmpViewModel model = JsonConvert.DeserializeObject<CreateUpdateEmpViewModel>(modelData);
+            UpdateEmpViewModel model = JsonConvert.DeserializeObject<UpdateEmpViewModel>(modelData);
             res = employee.UpdateEmpImage(file, model);
             return Ok(res);
         }
 
         [HttpPost]
         [Route("updateEmployee")]
-        public object UpdateEmployee(CreateUpdateEmpViewModel model)
+        public object UpdateEmployee(UpdateEmpViewModel model)
         {
             res = employee.UpdateEmployee(model);
             return Ok(res);

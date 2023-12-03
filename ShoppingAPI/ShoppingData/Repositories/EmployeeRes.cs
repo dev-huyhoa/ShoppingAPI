@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using ShoppingContext.Model;
 using ShoppingData.Interfaces;
 using ShoppingShare.Ultilities;
 using ShoppingShare.ViewModel;
-using ShoppingShare.ViewModel.Customer;
+using ShoppingShare.ViewModel.Employee;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,7 +43,7 @@ namespace ShoppingData.Repositories
             return res;
         }
 
-        public Response CreateEmployee(CreateUpdateEmpViewModel input)
+        public Response CreateEmployee(CreateEmpViewModel input, ICollection<IFormFile> files)
         {
             try
             {
@@ -54,6 +55,10 @@ namespace ShoppingData.Repositories
                 emp.RoleId = input.RoleId;
                 emp.Address = input.Address;
                 emp.Password = "123";
+                foreach (var file in files)
+                {
+                    emp.Image = Ultility.WriteFile(file, "Employee", emp.IdEmployee.ToString());
+                }
                 emp.Image = input.Image;
                 emp.Phone = input.Phone;
                 emp.Status = true;
@@ -70,7 +75,7 @@ namespace ShoppingData.Repositories
             return res;
         }
 
-        public Response UpdateEmployee(CreateUpdateEmpViewModel input)
+        public Response UpdateEmployee(UpdateEmpViewModel input)
         {
             try
             {
@@ -161,13 +166,10 @@ namespace ShoppingData.Repositories
             return res;
         }
 
-        public Response UpdateEmpImage(ICollection<IFormFile> files, CreateUpdateEmpViewModel input)
+        public Response UpdateEmpImage(ICollection<IFormFile> files, UpdateEmpViewModel input)
         {
             try
             {
-
-
-
                 var result = (from x in _db.Employees
                               where x.IdEmployee == input.IdEmployee
                               select x).FirstOrDefault();
@@ -185,8 +187,6 @@ namespace ShoppingData.Repositories
                     result.RoleId = input.RoleId;
                     result.Status = input.Status;
                     result.Address = input.Address;
-                    result.Image = input.Image;
-
                     foreach (var file in files)
                     {
                         result.Image = Ultility.WriteFile(file, "Employee", input.IdEmployee.ToString());

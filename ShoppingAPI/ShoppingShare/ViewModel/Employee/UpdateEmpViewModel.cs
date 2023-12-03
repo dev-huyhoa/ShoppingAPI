@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShoppingShare.ViewModel.Customer
+namespace ShoppingShare.ViewModel.Employee
 {
-    public class CreateUpdateEmpViewModel
+    public class UpdateEmpViewModel
     {
         private Guid idEmployee;
         private string nameEmployee;
