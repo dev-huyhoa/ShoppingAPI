@@ -1,5 +1,6 @@
 ﻿using ShoppingContext.Model;
 using ShoppingData.Interfaces;
+using ShoppingShare.Ultilities;
 using ShoppingShare.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -84,6 +85,27 @@ namespace ShoppingData.Repositories
                 res.Data = result;
                 res.Success = true;
                 res.Message = "";
+            }
+            catch (Exception ex)
+            {
+                res.Success = false;
+                res.Message = ex.Message;
+            }
+            return res;
+        }
+
+        public Response SendPassCus(string email)
+        {
+            try
+            {
+                var result = (from x in _db.Employees
+                              where x.Email == email
+                              select x).FirstOrDefault();
+                while (result != null)
+                {
+                    Ultility.SendPass(email);
+                    break;
+                }
             }
             catch (Exception ex)
             {
