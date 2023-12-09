@@ -23,5 +23,12 @@ namespace ShoppingAPI.Controllers
             res = authentication.Login(model);
             return Ok(res);
         }
+
+        [HttpPost("LoginWithNewPass")]
+        public object LoginWithNewPass(string email, string newPassword)
+        {
+            res = authentication.LoginWithNewPass(email,newPassword);
+            return Ok(res);
+        }
     }
 }

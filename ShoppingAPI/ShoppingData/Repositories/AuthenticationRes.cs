@@ -51,6 +51,34 @@ namespace ShoppingData.Repositories
             }
         }
 
+        public Response LoginWithNewPass(string email,string newPassword)
+        {
+            try
+            {
+                var user = (from x in _db.Employees
+                            where x.Email == email
+                            select x).FirstOrDefault();
+                if (user == null)
+                {
+                    res.Success = false;
+                    res.Message = "Không tìm thấy email này!";
+                }
+                else
+                {
+                    user.Password = newPassword;
+                    _db.SaveChanges();
+                    res.Success = true;
+                    res.Message = "Đổi mật khẩu thành công";
+                }
+            }
+            catch(Exception ex)
+            {
+                res.Success = false;
+                res.Message= ex.Message;
+            }
+            return res;
+        }
+
         private Authentication GenerateToken(Employee result)
         {
             var jwtTokenHandle = new JwtSecurityTokenHandler();
