@@ -42,9 +42,9 @@ namespace ShoppingAPI.Controllers
 
         [HttpDelete]
         [Route("deleteCategory")]
-        public object DeleteCategory(Guid IdCategory)
+        public object DeleteCategory(Guid idCategory)
         {
-            res = category.DeleteCategory(IdCategory);
+            res = category.DeleteCategory(idCategory);
             return Ok(res);
         }
 

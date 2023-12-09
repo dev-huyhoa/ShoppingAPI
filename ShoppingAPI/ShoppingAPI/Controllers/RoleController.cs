@@ -2,11 +2,13 @@
 using ShoppingContext.Model;
 using ShoppingData.Interfaces;
 using ShoppingShare.ViewModel;
+using ShoppingShare.ViewModel.Role;
 
 namespace ShoppingAPI.Controllers
 {
+    [ApiController]
     [Route("api/[controller]")]
-    public class RoleController : Controller
+    public class RoleController : ControllerBase
     {
         private IRole role;
         private Response res;
@@ -27,7 +29,7 @@ namespace ShoppingAPI.Controllers
 
         [HttpPost]
         [Route("createRole")]
-        public object CreateRole(Role model)
+        public object CreateRole(CreateUpdateRoleViewModel model)
         {
             res = role.CreateRole(model);
             return Ok(res);
@@ -35,7 +37,7 @@ namespace ShoppingAPI.Controllers
 
         [HttpPost]
         [Route("updateRole")]
-        public object UpdateRole(Role model)
+        public object UpdateRole(CreateUpdateRoleViewModel model)
         {
             res = role.UpdateRole(model);
             return Ok(res);
