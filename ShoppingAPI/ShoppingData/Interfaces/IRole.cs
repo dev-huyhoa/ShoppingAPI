@@ -1,5 +1,6 @@
 ﻿using ShoppingContext.Model;
 using ShoppingShare.ViewModel;
+using ShoppingShare.ViewModel.Role;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,8 +12,8 @@ namespace ShoppingData.Interfaces
     public interface IRole
     {
         Response GetsRole();
-        Response CreateRole(Role input);
-        Response UpdateRole(Role input);
+        Response CreateRole(CreateUpdateRoleViewModel input);
+        Response UpdateRole(CreateUpdateRoleViewModel input);
         Response DeleteRole(int IdRole);
     }
 }

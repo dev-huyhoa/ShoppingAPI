@@ -1,6 +1,7 @@
 ﻿using ShoppingContext.Model;
 using ShoppingData.Interfaces;
 using ShoppingShare.ViewModel;
+using ShoppingShare.ViewModel.Role;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,7 @@ namespace ShoppingData.Repositories
             res = new Response();
         }
 
-        public Response CreateRole(Role input)
+        public Response CreateRole(CreateUpdateRoleViewModel input)
         {
             try
             {
@@ -49,13 +50,13 @@ namespace ShoppingData.Repositories
                 if(result == null)
                 {
                     res.Success= false;
-                    res.Message = "Không tìm thấy Role";
+                    res.Message = "Không tìm thấy";
                 }
                 else
                 {
                     result.IsDelete = true;
                     _db.SaveChanges();
-                    res.Message = "Xóa thành công Role";
+                    res.Message = "Xóa thành công";
                     res.Success =true;
                 }
             }
@@ -85,7 +86,7 @@ namespace ShoppingData.Repositories
             return res;
         }
 
-        public Response UpdateRole(Role input)
+        public Response UpdateRole(CreateUpdateRoleViewModel input)
         {
             try
             {
