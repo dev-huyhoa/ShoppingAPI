@@ -9,6 +9,8 @@ using ShoppingShare.ViewModel.Employee;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
@@ -195,6 +197,82 @@ namespace ShoppingData.Repositories
                     _db.SaveChanges();
                     res.Message = "Cập nhật thành công";
                     res.Success = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                res.Success = false;
+                res.Message = ex.Message;
+            }
+            return res;
+        }
+
+        public Response ChangePassEmp(Guid idEmployee, string password)
+        {
+            try
+            {
+                var result = (from x in _db.Employees
+                              where x.IdEmployee == idEmployee
+                              select x).FirstOrDefault();
+                if (result == null)
+                {
+                    res.Success = false;
+                    res.Message = "Không tìm thấy nhân viên!";
+                }
+                else
+                {
+                    result.Password = password;
+                    _db.SaveChanges();
+                    res.Success = true;
+                    res.Message = "Đổi mật khẩu thành công";
+                }
+            }
+            catch (Exception ex)
+            {
+                res.Success = false;
+                res.Message = ex.Message;
+            }
+            return res;
+        }
+
+        public Response SendPassEmp(string email)
+        {
+            try
+            {
+                var result = (from x in _db.Employees
+                              where x.Email == email
+                              select x).FirstOrDefault();
+                if (result == null)
+                {
+                    res.Success = false;
+                    res.Message = "Không tìm thấy email của nhân viên này!";
+                }
+                else
+                {
+                    Random rd = new Random();
+                    //var mailsend = "driverhuyhoa@gmail.com";
+                    //var password = "3221312312zZ";
+                    var mailSend = "thaoln20@uef.edu.vn";
+                    var password = "079302012544";
+                    using (var client = new SmtpClient("smtp.gmail.com", 587))
+                    {
+                        client.EnableSsl = true;
+                        client.UseDefaultCredentials = false;
+                        client.Credentials = new NetworkCredential(mailSend, password);
+
+                        var mailMessage = new MailMessage
+                        {
+                            From = new MailAddress(email),
+                            Subject = "Password mới",
+                            Body = rd.Next().ToString(),
+                            IsBodyHtml = true,
+                        };
+
+                        mailMessage.To.Add(email);
+
+                        client.Send(mailMessage);
+
+                    }
                 }
             }
             catch (Exception ex)

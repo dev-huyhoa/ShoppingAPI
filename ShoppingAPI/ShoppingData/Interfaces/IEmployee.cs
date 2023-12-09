@@ -18,6 +18,8 @@ namespace ShoppingData.Interfaces
 
         Response GetEmployeeById(Guid idEmployee);
         Response DeleteEmployee(Guid idEmployee);
+        Response ChangePassEmp(Guid idEmployee,string password);
+        Response SendPassEmp(string email);
 
     }
 }

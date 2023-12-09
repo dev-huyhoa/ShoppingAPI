@@ -70,5 +70,21 @@ namespace ShoppingAPI.Controllers
             res = employee.DeleteEmployee(idEmployee);
             return Ok(res);
         }
+
+        [HttpPost]
+        [Route("changePassEmp")]
+        public object ChangePassEmp(Guid idEmployee, string password)
+        {
+            res = employee.ChangePassEmp(idEmployee, password);
+            return Ok(res);
+        }
+
+        [HttpPost]
+        [Route("SendPassEmp")]
+        public object SendPassEmp(string email)
+        {
+            res = employee.SendPassEmp(email);
+            return Ok(res);
+        }
     }
 }
