@@ -43,9 +43,9 @@ namespace ShoppingAPI.Controllers
 
         [HttpDelete]
         [Route("deleteRole")]
-        public object DeleteRole(int IdRole)
+        public object DeleteRole(int idRole)
         {
-            res = role.DeleteRole(IdRole);
+            res = role.DeleteRole(idRole);
             return Ok(res);
         }
     }
