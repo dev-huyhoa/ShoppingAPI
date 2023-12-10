@@ -396,3 +396,11 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+*.vsidx
+**/bin/Debug/
+**/bin/Release/
+**/obj/
+**/.vs/
+ShoppingAPI/ShoppingAPI/ShoppingContext/Migrations
+ShoppingAPI/ShoppingAPI/wwwroot
+
