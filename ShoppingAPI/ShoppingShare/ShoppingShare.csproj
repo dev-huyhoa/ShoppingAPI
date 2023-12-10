@@ -8,10 +8,10 @@
 
   <ItemGroup>
     <Folder Include="Midleware\" />
-    <Folder Include="Ultilities\" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="CloudinaryDotNet" Version="1.23.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.0" />
