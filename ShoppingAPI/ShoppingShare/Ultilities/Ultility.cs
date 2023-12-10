@@ -10,7 +10,6 @@ using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
-using ShoppingContext.Model;
 
 namespace ShoppingShare.Ultilities
 {
