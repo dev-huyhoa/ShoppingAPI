@@ -4,10 +4,13 @@ using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
+using System.Net;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
+using ShoppingContext.Model;
 
 namespace ShoppingShare.Ultilities
 {
@@ -144,6 +147,32 @@ namespace ShoppingShare.Ultilities
             var uploadResult = cloudinary.Upload(uploadParams);
             publicId = $"lia/Folder/{uploadResult.PublicId}";
             return uploadResult.Uri.ToString();
+        }
+        public static int SendPass(string email)
+        {
+            Random rd = new Random();
+            var mailSend = "thaoln20@uef.edu.vn";
+            var password = "079302012544";
+            using (var client = new SmtpClient("smtp.gmail.com", 587))
+            {
+                client.EnableSsl = true;
+                client.UseDefaultCredentials = false;
+                client.Credentials = new NetworkCredential(mailSend, password);
+
+                var mailMessage = new MailMessage
+                {
+                    From = new MailAddress(email),
+                    Subject = "Anh hòa oi",
+                    Body = rd.Next().ToString(),
+                    IsBodyHtml = true,
+                };
+
+                mailMessage.To.Add(email);
+
+                client.Send(mailMessage);
+
+            }
+            return 0;
         }
     }
 }

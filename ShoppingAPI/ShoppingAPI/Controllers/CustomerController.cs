@@ -50,5 +50,13 @@ namespace ShoppingAPI.Controllers
             res = customer.DeleteCustomer(IdCustomer);
             return Ok(res);
         }
+
+        [HttpPost]
+        [Route("SendPassCus")]
+        public object SendPassCus(string email)
+        {
+            res = customer.SendPassCus(email);
+            return Ok(res);
+        }
     }
 }

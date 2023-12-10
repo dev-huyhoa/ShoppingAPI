@@ -242,45 +242,64 @@ namespace ShoppingData.Repositories
                 var result = (from x in _db.Employees
                               where x.Email == email
                               select x).FirstOrDefault();
-                if (result == null)
+                while(result != null)
                 {
-                    res.Success = false;
-                    res.Message = "Không tìm thấy email của nhân viên này!";
-                }
-                else
-                {
-                    Random rd = new Random();
-                    //var mailsend = "driverhuyhoa@gmail.com";
-                    //var password = "3221312312zZ";
-                    var mailSend = "thaoln20@uef.edu.vn";
-                    var password = "079302012544";
-                    using (var client = new SmtpClient("smtp.gmail.com", 587))
-                    {
-                        client.EnableSsl = true;
-                        client.UseDefaultCredentials = false;
-                        client.Credentials = new NetworkCredential(mailSend, password);
-
-                        var mailMessage = new MailMessage
-                        {
-                            From = new MailAddress(email),
-                            Subject = "Password mới",
-                            Body = rd.Next().ToString(),
-                            IsBodyHtml = true,
-                        };
-
-                        mailMessage.To.Add(email);
-
-                        client.Send(mailMessage);
-
-                    }
+                    Ultility.SendPass(email);
+                    break;
                 }
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 res.Success = false;
                 res.Message = ex.Message;
             }
             return res;
         }
+
+        //public Response SendPassEmp(string email)
+        //{
+        //    try
+        //    {
+        //        var result = (from x in _db.Employees
+        //                      where x.Email == email
+        //                      select x).FirstOrDefault();
+        //        if (result == null)
+        //        {
+        //            res.Success = false;
+        //            res.Message = "Không tìm thấy email của nhân viên này!";
+        //        }
+        //        else
+        //        {
+        //            Random rd = new Random();
+        //            var mailSend = "thaoln20@uef.edu.vn";
+        //            var password = "079302012544";
+        //            using (var client = new SmtpClient("smtp.gmail.com", 587))
+        //            {
+        //                client.EnableSsl = true;
+        //                client.UseDefaultCredentials = false;
+        //                client.Credentials = new NetworkCredential(mailSend, password);
+
+        //                var mailMessage = new MailMessage
+        //                {
+        //                    From = new MailAddress(email),
+        //                    Subject = "Password mới",
+        //                    Body = rd.Next().ToString(),
+        //                    IsBodyHtml = true,
+        //                };
+
+        //                mailMessage.To.Add(email);
+
+        //                client.Send(mailMessage);
+
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        res.Success = false;
+        //        res.Message = ex.Message;
+        //    }
+        //    return res;
+        //}
     }
 }
