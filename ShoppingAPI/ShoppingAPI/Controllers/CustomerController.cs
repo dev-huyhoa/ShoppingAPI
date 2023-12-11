@@ -58,5 +58,13 @@ namespace ShoppingAPI.Controllers
             res = customer.SendPassCus(email);
             return Ok(res);
         }
+
+        [HttpPost]
+        [Route("GetListCusDeleted")]
+        public object GetListCusDeleted()
+        {
+            res = customer.GetListCusDeleted();
+            return Ok(res);
+        }
     }
 }

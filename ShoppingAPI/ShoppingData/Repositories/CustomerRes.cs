@@ -94,6 +94,34 @@ namespace ShoppingData.Repositories
             return res;
         }
 
+        public Response GetListCusDeleted()
+        {
+            try
+            {
+                var cus = (from x in _db.Customers
+                           where x.IsDelete == true
+                           select x).ToList();
+                if(cus != null)
+                {
+                    res.Data = cus;
+                    res.Success = true;
+                    res.Message = "";
+                }
+                else
+                {
+                    res.Success = false;
+                    res.Message = "Chưa có khách hàng nào bị xóa!";
+                }
+
+            }
+            catch(Exception ex)
+            {
+                res.Success = false; 
+                res.Message = ex.Message;
+            }
+            return res;
+        }
+
         public Response SendPassCus(string email)
         {
             try
