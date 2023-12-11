@@ -147,9 +147,9 @@ namespace ShoppingShare.Ultilities
             publicId = $"lia/Folder/{uploadResult.PublicId}";
             return uploadResult.Uri.ToString();
         }
-        public static int SendPass(string email)
+        public static int SendMail(string email,string subject,string content )
         {
-            Random rd = new Random();
+            
             var mailSend = "thaoln20@uef.edu.vn";
             var password = "079302012544";
             using (var client = new SmtpClient("smtp.gmail.com", 587))
@@ -161,8 +161,8 @@ namespace ShoppingShare.Ultilities
                 var mailMessage = new MailMessage
                 {
                     From = new MailAddress(email),
-                    Subject = "Anh hòa oi",
-                    Body = rd.Next().ToString(),
+                    Subject = subject,
+                    Body = content,
                     IsBodyHtml = true,
                 };
 

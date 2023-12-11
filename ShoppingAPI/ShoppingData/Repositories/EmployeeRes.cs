@@ -150,7 +150,7 @@ namespace ShoppingData.Repositories
                 {
                     emp.IsDelete = true;
                     _db.SaveChanges();
-                    res.Message = "Xóa nhân viên thành công";
+                    res.Message = "Xóa thành công";
                     res.Success = true;
                 }
                 else
@@ -235,17 +235,24 @@ namespace ShoppingData.Repositories
             return res;
         }
 
-        public Response SendPassEmp(string email)
+        public Response SendPassEmp(string email, string subject)
         {
             try
             {
                 var result = (from x in _db.Employees
                               where x.Email == email
                               select x).FirstOrDefault();
-                while(result != null)
+                if(result != null)
                 {
-                    Ultility.SendPass(email);
-                    break;
+                    Random rd = new Random();
+                    Ultility.SendMail(email,subject, rd.Next().ToString());
+                    res.Success=true;
+                    res.Message = "Gửi mật khẩu mới thành công";
+                }
+                else
+                {
+                    res.Success = false;
+                    res.Message = "Không tìm thấy email này!";
                 }
             }
             catch(Exception ex)

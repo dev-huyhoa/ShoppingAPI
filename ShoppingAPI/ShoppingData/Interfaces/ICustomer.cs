@@ -14,7 +14,7 @@ namespace ShoppingData.Interfaces
         Response CreateCustomer(CreateCustomerViewModel input);
         Response UpdateCustomer(CreateCustomerViewModel input);
         Response DeleteCustomer(Guid IdCustomer);
-        Response SendPassCus(string email);
+        Response SendPassCus(string email, string subject);
         Response GetListCusDeleted();
     }
 }

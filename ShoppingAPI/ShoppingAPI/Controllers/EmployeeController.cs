@@ -81,9 +81,9 @@ namespace ShoppingAPI.Controllers
 
         [HttpPost]
         [Route("SendPassEmp")]
-        public object SendPassEmp(string email)
+        public object SendPassEmp(string email, string subject)
         {
-            res = employee.SendPassEmp(email);
+            res = employee.SendPassEmp(email, subject);
             return Ok(res);
         }
     }

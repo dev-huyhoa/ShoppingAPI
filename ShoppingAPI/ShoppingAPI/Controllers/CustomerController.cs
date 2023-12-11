@@ -53,9 +53,9 @@ namespace ShoppingAPI.Controllers
 
         [HttpPost]
         [Route("SendPassCus")]
-        public object SendPassCus(string email)
+        public object SendPassCus(string email, string subject)
         {
-            res = customer.SendPassCus(email);
+            res = customer.SendPassCus(email, subject);
             return Ok(res);
         }
 
