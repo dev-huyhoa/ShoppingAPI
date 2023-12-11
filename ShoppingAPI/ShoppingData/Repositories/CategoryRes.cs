@@ -28,7 +28,7 @@ namespace ShoppingData.Repositories
                 _db.Categories.Add(category);
                 _db.SaveChanges(); 
                 res.Success = true;
-                res.Message = "Thêm mới Category thành công";
+                res.Message = "Thêm mới thành công";
             }
             catch (Exception ex)
             {
@@ -48,14 +48,14 @@ namespace ShoppingData.Repositories
                 if(result == null)
                 {
                     res.Success = false;
-                    res.Message = "Không tìm thấy category";
+                    res.Message = "Không tìm thấy!";
                 }
                 else
                 {
                     result.IsDelete = true;
                     _db.SaveChanges();
                     res.Success = true;
-                    res.Message = "Xóa category thành công";
+                    res.Message = "Xóa thành công";
                 }
             }
             catch(Exception ex)
@@ -94,14 +94,14 @@ namespace ShoppingData.Repositories
                 if(result == null)
                 {
                     res.Success = false;
-                    res.Message = "Không tìm thấy category!";
+                    res.Message = "Không tìm thấy!";
                 }
                 else
                 {
                     result.Title = input.Title;
                     _db.SaveChanges();
                     res.Success = true;
-                    res.Message = "Cập nhật category thành công";
+                    res.Message = "Cập nhật thành công";
                 }
             }
             catch(Exception ex)
