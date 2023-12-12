@@ -20,5 +20,6 @@ namespace ShoppingContext.Model
         public bool IsDelete { get; set; }
         public int RoleId { get; set; }
         public Role Role { get; set; }
+        public string Otp { get; set; }
     }
 }

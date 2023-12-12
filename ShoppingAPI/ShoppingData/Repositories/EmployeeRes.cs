@@ -14,6 +14,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
+using System.Reflection.Metadata;
 
 namespace ShoppingData.Repositories
 {
@@ -245,9 +246,13 @@ namespace ShoppingData.Repositories
                 if(result != null)
                 {
                     Random rd = new Random();
-                    Ultility.SendMail(email,subject, rd.Next().ToString());
-                    res.Success=true;
-                    res.Message = "Gửi mật khẩu mới thành công";
+                    string content = rd.Next().ToString();
+                    result.Otp = content;
+                    _db.SaveChanges();
+                    Ultility.SendMail(email,subject, content);
+                    res.Success = true;
+                    res.Message = "Gửi mật khẩu thành công";
+
                 }
                 else
                 {
@@ -263,50 +268,41 @@ namespace ShoppingData.Repositories
             return res;
         }
 
-        //public Response SendPassEmp(string email)
-        //{
-        //    try
-        //    {
-        //        var result = (from x in _db.Employees
-        //                      where x.Email == email
-        //                      select x).FirstOrDefault();
-        //        if (result == null)
-        //        {
-        //            res.Success = false;
-        //            res.Message = "Không tìm thấy email của nhân viên này!";
-        //        }
-        //        else
-        //        {
-        //            Random rd = new Random();
-        //            var mailSend = "thaoln20@uef.edu.vn";
-        //            var password = "079302012544";
-        //            using (var client = new SmtpClient("smtp.gmail.com", 587))
-        //            {
-        //                client.EnableSsl = true;
-        //                client.UseDefaultCredentials = false;
-        //                client.Credentials = new NetworkCredential(mailSend, password);
+        public Response ChangePassEmpUseOTP(string email, string newPassword, string otp)
+        {
+            try
+            {
+                var result = (from x in _db.Employees
+                              where x.Email == email
+                              select x).FirstOrDefault();
+                if (result != null)
+                {
+                    if(result.Otp == otp)
+                    {
+                        result.Password = newPassword;
+                        _db.SaveChanges();
+                        res.Success = true;
+                        res.Message = "Đổi mật khẩu thành công";
+                    }
+                    else
+                    {
+                        res.Success = false;
+                        res.Message = "Sai mã OTP !";
+                    }
+                }
+                else
+                {
+                    res.Success = false;
+                    res.Message = "Không tìm thấy email !";
+                }
+            }
+            catch( Exception ex)
+            {
+                res.Success = false;
+                res.Message= ex.Message;
+            }
+            return res;
+        }
 
-        //                var mailMessage = new MailMessage
-        //                {
-        //                    From = new MailAddress(email),
-        //                    Subject = "Password mới",
-        //                    Body = rd.Next().ToString(),
-        //                    IsBodyHtml = true,
-        //                };
-
-        //                mailMessage.To.Add(email);
-
-        //                client.Send(mailMessage);
-
-        //            }
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        res.Success = false;
-        //        res.Message = ex.Message;
-        //    }
-        //    return res;
-        //}
     }
 }

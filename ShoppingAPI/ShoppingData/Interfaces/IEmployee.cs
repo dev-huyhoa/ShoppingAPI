@@ -20,6 +20,7 @@ namespace ShoppingData.Interfaces
         Response DeleteEmployee(Guid idEmployee);
         Response ChangePassEmp(Guid idEmployee,string password);
         Response SendPassEmp(string email,string subject);
+        Response ChangePassEmpUseOTP(string email,string newPassword,string otp);
 
     }
 }

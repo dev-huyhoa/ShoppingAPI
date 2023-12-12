@@ -11,6 +11,5 @@ namespace ShoppingData.Interfaces
     public interface IAuthentication
     {
         Response Login(LoginViewModel model);
-        Response LoginWithNewPass(string email,string newPassword);
     }
 }

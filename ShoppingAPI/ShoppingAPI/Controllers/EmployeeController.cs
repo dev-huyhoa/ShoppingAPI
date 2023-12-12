@@ -73,7 +73,7 @@ namespace ShoppingAPI.Controllers
 
         [HttpPost]
         [Route("changePassEmp")]
-        public object ChangePassEmp(Guid idEmployee, string password)
+        public object ChangePassEmpUseOTP(Guid idEmployee, string password)
         {
             res = employee.ChangePassEmp(idEmployee, password);
             return Ok(res);
@@ -84,6 +84,15 @@ namespace ShoppingAPI.Controllers
         public object SendPassEmp(string email, string subject)
         {
             res = employee.SendPassEmp(email, subject);
+            return Ok(res);
+        }
+
+
+        [HttpPost]
+        [Route("ChangePassEmpUseOTP")]
+        public object ChangePassEmpUseOTP(string email, string newPassword, string otp)
+        {
+            res = employee.ChangePassEmpUseOTP(email, newPassword, otp);
             return Ok(res);
         }
     }
