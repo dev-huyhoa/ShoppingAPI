@@ -22,9 +22,8 @@ namespace ShoppingContext.Model
         public DbSet<Product> Products { get; set; }
         public DbSet<Cart> Carts { get; set; }
         public DbSet<ProductImage> ProductImages { get; set; }
-        public DbSet<Color> Colors { get; set; }
         public DbSet<Size> Sizes { get; set; }
-        public DbSet<ProductSizeColor> ProductSizeColors { get; set; }
+        public DbSet<ProductSize> ProductSize{ get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<Order> Orders { get; set; }
 
@@ -89,24 +88,17 @@ namespace ShoppingContext.Model
             .HasForeignKey(r => r.ProductId);
             });
 
-            modelBuilder.Entity<Color>(entity =>
-            {
-                entity.HasKey(e => e.IdColor);
-            });
-
             modelBuilder.Entity<Size>(entity =>
             {
                 entity.HasKey(e => e.IdSize);
             });
 
-            modelBuilder.Entity<ProductSizeColor>(entity =>
+            modelBuilder.Entity<ProductSize>(entity =>
             {
-                entity.HasKey(e => e.IdProductSizeColor);
-                entity.HasOne(r => r.Color);
+                entity.HasKey(e => e.IdProductSize);
                 entity.HasOne(r => r.Size);
                 entity.HasOne(r => r.Product)
-            .WithMany(u => u.ProductSizeColors)
-            .HasForeignKey(r => r.ColorId)
+            .WithMany(u => u.ProductSizes)
             .HasForeignKey(r => r.SizeId)
             .HasForeignKey(r => r.ProductId);
             });

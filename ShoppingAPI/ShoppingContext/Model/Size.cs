@@ -11,6 +11,6 @@ namespace ShoppingContext.Model
         public int IdSize { get; set; }
         public string Name { get; set; }
         public bool IsDelete { get; set; }
-        public ICollection<ProductSizeColor> ProductSizeColors { get; set; }
+        public ICollection<ProductSize> ProductSizeColors { get; set; }
     }
 }

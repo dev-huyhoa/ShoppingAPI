@@ -12,7 +12,6 @@ namespace ShoppingContext.Model
         public string Title { get; set; }
         public decimal Price { get; set; }
         public decimal PriceSale { get; set; }
-        public int StockQuantity { get; set; }
         public string Description { get; set; }
         public bool IsBestseller { get; set; }
         public bool IsNewArrival { get; set; }
@@ -22,6 +21,6 @@ namespace ShoppingContext.Model
         public Category Category { get; set; }
         public ICollection<ProductImage> ProductImages { get; set; }
         public ICollection<OrderDetail> OrderDetails { get; set; }
-        public ICollection<ProductSizeColor> ProductSizeColors { get; set; }
+        public ICollection<ProductSize> ProductSizes { get; set; }
     }
 }

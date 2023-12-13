@@ -16,6 +16,7 @@ builder.Services.AddScoped<IAuthentication, AuthenticationRes>();
 builder.Services.AddScoped<IEmployee, EmployeeRes>();
 builder.Services.AddScoped<IRole, RoleRes>();
 builder.Services.AddScoped<ICategory, CategoryRes>();
+builder.Services.AddScoped<IProduct, ProductRes>();
 
 // Configure JWT Authentication
 var key = builder.Configuration["SecretKey:Key"];
@@ -31,7 +32,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
         ValidateIssuerSigningKey = true,
         IssuerSigningKey = new SymmetricSecurityKey(keyByte),
 
-        ClockSkew = TimeSpan.Zero
+        ClockSkew = TimeSpan.FromDays(1)
     };
 });
 

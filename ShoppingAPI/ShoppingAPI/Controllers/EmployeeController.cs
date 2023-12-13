@@ -80,7 +80,6 @@ namespace ShoppingAPI.Controllers
         }
 
         [HttpPost]
-        [Authorize]
         [Route("changePassEmp")]
         public object ChangePassEmpUseOTP(Guid idEmployee, string password)
         {
@@ -89,7 +88,6 @@ namespace ShoppingAPI.Controllers
         }
 
         [HttpPost]
-        [Authorize]
         [Route("SendPassEmp")]
         public object SendPassEmp(string email, string subject)
         {
@@ -99,7 +97,6 @@ namespace ShoppingAPI.Controllers
 
 
         [HttpPost]
-        [Authorize]
         [Route("ChangePassEmpUseOTP")]
         public object ChangePassEmpUseOTP(string email, string newPassword, string otp)
         {
