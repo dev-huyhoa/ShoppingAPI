@@ -47,6 +47,7 @@ namespace ShoppingContext.Model
                 entity.Property(e => e.Image).IsRequired(false);
                 entity.Property(e => e.Password).IsRequired(false);
                 entity.Property(e => e.NameEmployee).IsRequired(false);
+                entity.Property(e => e.Otp).IsRequired(false);
                 entity.HasOne(r => r.Role)
             .WithMany(u => u.Employees)
             .HasForeignKey(r => r.RoleId);

@@ -240,16 +240,14 @@ namespace ShoppingData.Repositories
         {
             try
             {
-                var result = (from x in _db.Employees
-                              where x.Email == email
-                              select x).FirstOrDefault();
+                var result = _db.Employees.Where(e => e.Email == email).FirstOrDefault();
                 if(result != null)
                 {
                     Random rd = new Random();
                     string content = rd.Next().ToString();
                     result.Otp = content;
-                    _db.SaveChanges();
                     Ultility.SendMail(email,subject, content);
+                    _db.SaveChanges();
                     res.Success = true;
                     res.Message = "Gửi mật khẩu thành công";
 
@@ -272,9 +270,7 @@ namespace ShoppingData.Repositories
         {
             try
             {
-                var result = (from x in _db.Employees
-                              where x.Email == email
-                              select x).FirstOrDefault();
+                var result = _db.Employees.Where(e => e.Email == email).FirstOrDefault();
                 if (result != null)
                 {
                     if(result.Otp == otp)

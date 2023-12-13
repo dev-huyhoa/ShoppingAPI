@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using ShoppingContext.Model;
 using ShoppingData.Interfaces;
@@ -21,6 +22,7 @@ namespace ShoppingAPI.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         [Route("listEmployee")]
         public object Get()
         {
@@ -29,6 +31,7 @@ namespace ShoppingAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         [Route("createEmployee")]
         public object Create([FromForm] ICollection<IFormFile> file)
         {
@@ -39,6 +42,7 @@ namespace ShoppingAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         [Route("updateEmpImg")]
         public object UpdateEmpImage([FromForm] ICollection<IFormFile> file)
         {
@@ -49,13 +53,16 @@ namespace ShoppingAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         [Route("updateEmployee")]
         public object UpdateEmployee(UpdateEmpViewModel model)
         {
             res = employee.UpdateEmployee(model);
             return Ok(res);
         }
+
         [HttpGet]
+        [Authorize]
         [Route("getEmployeeById")]
         public object GetEmployeeById(Guid idEmployee)
         {
@@ -64,6 +71,7 @@ namespace ShoppingAPI.Controllers
         }
 
         [HttpDelete]
+        [Authorize]
         [Route("deleteEmployee")]
         public object Delete(Guid idEmployee)
         {
@@ -72,6 +80,7 @@ namespace ShoppingAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         [Route("changePassEmp")]
         public object ChangePassEmpUseOTP(Guid idEmployee, string password)
         {
@@ -80,6 +89,7 @@ namespace ShoppingAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         [Route("SendPassEmp")]
         public object SendPassEmp(string email, string subject)
         {
@@ -89,6 +99,7 @@ namespace ShoppingAPI.Controllers
 
 
         [HttpPost]
+        [Authorize]
         [Route("ChangePassEmpUseOTP")]
         public object ChangePassEmpUseOTP(string email, string newPassword, string otp)
         {
