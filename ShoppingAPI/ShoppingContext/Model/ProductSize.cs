@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace ShoppingContext.Model
 {
-    public class ProductSizeColor
+    public class ProductSize
     {
-        public Guid IdProductSizeColor { get; set; }
-        public int ColorId { get; set; }
-        public Color Color { get; set; }
+        public Guid IdProductSize { get; set; }
         public int SizeId { get; set; }
         public Size Size { get; set; }
         public Guid ProductId { get; set; }
