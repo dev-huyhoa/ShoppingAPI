@@ -14,6 +14,7 @@ namespace ShoppingData.Interfaces
         Response CreateCategory(CreateUpdateCategoryViewModel input);
         Response UpdateCategory(CreateUpdateCategoryViewModel input);
         Response DeleteCategory(Guid IdCategory);
+        Response GetCategoryById(Guid IdCategory);
 
     }
 }

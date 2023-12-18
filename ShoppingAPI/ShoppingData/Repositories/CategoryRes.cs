@@ -26,7 +26,7 @@ namespace ShoppingData.Repositories
                 Category category = new Category();
                 category.Title = input.Title;
                 _db.Categories.Add(category);
-                _db.SaveChanges(); 
+                _db.SaveChanges();
                 res.Success = true;
                 res.Message = "Thêm mới thành công";
             }
@@ -45,7 +45,7 @@ namespace ShoppingData.Repositories
                 var result = (from x in _db.Categories
                               where x.IdCategory == IdCategory
                               select x).FirstOrDefault();
-                if(result == null)
+                if (result == null)
                 {
                     res.Success = false;
                     res.Message = "Không tìm thấy!";
@@ -58,9 +58,9 @@ namespace ShoppingData.Repositories
                     res.Message = "Xóa thành công";
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                res.Success=false;
+                res.Success = false;
                 res.Message = ex.Message;
             }
             return res;
@@ -68,16 +68,35 @@ namespace ShoppingData.Repositories
 
         public Response GetCategory()
         {
-			try
-			{
+            try
+            {
                 var result = (from x in _db.Categories
                               where x.IsDelete == false
                               select x).ToList();
                 res.Data = result;
                 res.Success = true;
-			}
-			catch (Exception ex)
-			{
+            }
+            catch (Exception ex)
+            {
+                res.Data = ex.Message;
+                res.Success = false;
+            }
+            return res;
+        }
+
+        public Response GetCategoryById(Guid IdCategory)
+        {
+            try
+            {
+                var result = (from x in _db.Categories
+                              where x.IdCategory == IdCategory
+                              select x).SingleOrDefault();
+                res.Data = result;
+                res.Success = true;
+
+            }
+            catch (Exception ex)
+            {
                 res.Data = ex.Message;
                 res.Success = false;
             }
@@ -91,7 +110,7 @@ namespace ShoppingData.Repositories
                 var result = (from x in _db.Categories
                               where x.IdCategory == input.IdCategory
                               select x).FirstOrDefault();
-                if(result == null)
+                if (result == null)
                 {
                     res.Success = false;
                     res.Message = "Không tìm thấy!";
@@ -104,10 +123,10 @@ namespace ShoppingData.Repositories
                     res.Message = "Cập nhật thành công";
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 res.Message = ex.Message;
-                res.Success= false;
+                res.Success = false;
             }
             return res;
         }

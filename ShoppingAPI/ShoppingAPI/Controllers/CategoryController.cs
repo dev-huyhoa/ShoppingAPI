@@ -24,6 +24,15 @@ namespace ShoppingAPI.Controllers
             res = category.GetCategory();
             return Ok(res);
         }
+
+        [HttpGet]
+        [Route("GetCategoryById")]
+        public object GetCategoryByID(Guid idCategory)
+        {
+            res =  category.GetCategoryById(idCategory);
+            return Ok(res);
+        }
+
         [HttpPost]
         [Route("createCategory")]
         public object CreateCategory(CreateUpdateCategoryViewModel model) 

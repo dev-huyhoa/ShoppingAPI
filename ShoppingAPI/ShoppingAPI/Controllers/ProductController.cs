@@ -34,8 +34,10 @@ namespace ShoppingAPI.Controllers
             return Ok(res);
         }
 
-        [HttpPost]
-        [Route("GetProduct")]
+        [HttpGet]
+        [Authorize]
+
+        [Route("getProduct")]
         public object GetProductDetail()
         {
             res = product.GetProduct();
