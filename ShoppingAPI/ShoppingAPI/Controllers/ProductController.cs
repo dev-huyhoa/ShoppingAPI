@@ -30,17 +30,25 @@ namespace ShoppingAPI.Controllers
         {
             var modelData = Request.Form["resProductData"];
             ProductViewModel model = JsonConvert.DeserializeObject<ProductViewModel>(modelData);
+
             res = product.CreateProduct(model, file);
             return Ok(res);
         }
 
         [HttpGet]
-        [Authorize]
-
         [Route("getProduct")]
         public object GetProductDetail()
         {
             res = product.GetProduct();
+            return Ok(res);
+        }
+
+        [HttpGet]
+
+        [Route("getProductImg")]
+        public object getProductImg(Guid idProduct)
+        {
+            res = product.GetProductImg(idProduct);
             return Ok(res);
         }
     }

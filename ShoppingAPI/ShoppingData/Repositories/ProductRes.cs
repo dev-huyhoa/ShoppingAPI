@@ -3,13 +3,7 @@ using ShoppingContext.Model;
 using ShoppingData.Interfaces;
 using ShoppingShare.Ultilities;
 using ShoppingShare.ViewModel;
-using ShoppingShare.ViewModel.Employee;
 using ShoppingShare.ViewModel.Product;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ShoppingData.Repositories
 {
@@ -30,17 +24,8 @@ namespace ShoppingData.Repositories
             {
                 var product = (from x in _db.Products
                                where x.IsDelete == false
-                               select new
-                               {
-                                   Product = x,
-                                   SizeList = (from y in _db.ProductSize
-                                               where y.ProductId == x.IdProduct
-                                               select y.SizeId).ToList(),
-
-                                   ImageUrls = (from pd in _db.ProductImages
-                                                where pd.ProductId == x.IdProduct
-                                               select pd.imageUrl).ToList()      
-                               }).ToList();
+                               select x).ToList();
+              
                 res.Data = product;
                 res.Success = true;
             }
@@ -48,6 +33,25 @@ namespace ShoppingData.Repositories
             {
                 res.Success = false;
                 res.Message = ex.Message;    
+            }
+            return res;
+        }
+
+        public Response GetProductImg(Guid idProduct)
+        {
+            try
+            {
+                var productImg = (from x in _db.ProductImages
+                               where x.IsDelete == false && x.ProductId == idProduct
+                               select x).ToList();
+
+                res.Data = productImg;
+                res.Success = true;
+            }
+            catch (Exception ex)
+            {
+                res.Success = false;
+                res.Message = ex.Message;
             }
             return res;
         }
@@ -84,6 +88,7 @@ namespace ShoppingData.Repositories
                 product.Description = input.Description;
                 product.CategoryId = input.CategoryId;
                 _db.Products.Add(product);
+                _db.SaveChanges();
 
                 ProductImage productImage = new ProductImage();
                 foreach (var file in files)
@@ -94,7 +99,6 @@ namespace ShoppingData.Repositories
                     _db.ProductImages.Add(productImage);
                     _db.SaveChanges();
                 }            
-                _db.SaveChanges();
                 res.Message = "Thêm mới thành công ";
                 res.Success = true;
             }

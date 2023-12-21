@@ -16,5 +16,6 @@ namespace ShoppingData.Interfaces
         //Response GetProduct();
 
         Response CreateProduct(ProductViewModel input, ICollection<IFormFile> files);
+        Response GetProductImg(Guid idProduct);
     }
 }
