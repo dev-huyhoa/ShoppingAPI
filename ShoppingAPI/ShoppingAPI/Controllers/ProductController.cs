@@ -35,6 +35,18 @@ namespace ShoppingAPI.Controllers
             return Ok(res);
         }
 
+        [HttpPost]
+        [Authorize]
+        [Route("updateProductImg")]
+        public object updateProductImg([FromForm] ICollection<IFormFile> file)
+        {
+            var modelData = Request.Form["resProductData"];
+            ProductViewModel model = JsonConvert.DeserializeObject<ProductViewModel>(modelData);
+
+            res = product.UpdateProductImg(model, file);
+            return Ok(res);
+        }
+
         [HttpGet]
         [Route("getProduct")]
         public object GetProductDetail()

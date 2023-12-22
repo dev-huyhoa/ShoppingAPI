@@ -94,12 +94,63 @@ namespace ShoppingData.Repositories
                 foreach (var file in files)
                 {
                     productImage.IdProductImage = new Guid();
-                    productImage.IdProductImage = product.IdProduct;
+                    productImage.ProductId = product.IdProduct;
                     productImage.imageUrl = Ultility.WriteFile(file, "Product", productImage.IdProductImage.ToString());
                     _db.ProductImages.Add(productImage);
                     _db.SaveChanges();
                 }            
                 res.Message = "Thêm mới thành công ";
+                res.Success = true;
+            }
+            catch (Exception ex)
+            {
+                res.Message = "Thêm mới thất bại !";
+                res.Success = false;
+            }
+            return res;
+        }
+
+        public Response UpdateProductImg(ProductViewModel input, ICollection<IFormFile> files)
+        {
+            try
+            {
+                var result = (from x in _db.Products
+                              where x.IdProduct == input.IdProduct
+                              select x).FirstOrDefault();   
+                if (result != null)
+                {
+                    result.IdProduct = input.IdProduct;
+                    result.Title = input.Title;
+                    result.Price = input.Price;
+                    result.PriceSale = input.PriceSale;
+                    result.Description = input.Description;
+                    result.CategoryId = input.CategoryId;
+                    _db.SaveChanges();
+                }
+
+                
+
+               
+                if (files.Count > 0)
+                {
+                    var productImg = (from x in _db.ProductImages
+                                      where x.ProductId == input.IdProduct
+                                      select x).ToList();
+                    _db.ProductImages.RemoveRange(productImg);
+                    _db.SaveChanges();
+
+                    ProductImage productImage = new ProductImage();
+                    foreach (var file in files)
+                    {
+                        productImage.IdProductImage = new Guid();
+                        productImage.ProductId = result.IdProduct;
+                        productImage.imageUrl = Ultility.WriteFile(file, "Product", productImage.IdProductImage.ToString());
+                        _db.ProductImages.Add(productImage);
+                        _db.SaveChanges();
+                    }
+                }
+               
+                res.Message = "Sửa thành công ";
                 res.Success = true;
             }
             catch (Exception ex)
