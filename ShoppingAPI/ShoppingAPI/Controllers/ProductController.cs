@@ -63,5 +63,13 @@ namespace ShoppingAPI.Controllers
             res = product.GetProductImg(idProduct);
             return Ok(res);
         }
+
+        [HttpDelete]
+        [Route("deleteProduct")]
+        public object Delete(Guid idProduct)
+        {
+            res = product.DeleteProduct(idProduct);
+            return Ok(res);
+        }
     }
 }

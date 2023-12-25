@@ -18,5 +18,6 @@ namespace ShoppingData.Interfaces
         Response CreateProduct(ProductViewModel input, ICollection<IFormFile> files);
         Response UpdateProductImg(ProductViewModel input, ICollection<IFormFile> files);
         Response GetProductImg(Guid idProduct);
+        Response DeleteProduct(Guid idProduct);
     }
 }

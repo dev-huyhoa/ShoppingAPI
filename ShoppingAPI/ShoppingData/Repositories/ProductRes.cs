@@ -128,9 +128,6 @@ namespace ShoppingData.Repositories
                     _db.SaveChanges();
                 }
 
-                
-
-               
                 if (files.Count > 0)
                 {
                     var productImg = (from x in _db.ProductImages
@@ -160,6 +157,46 @@ namespace ShoppingData.Repositories
             }
             return res;
         }
+
+        public Response DeleteProduct(Guid idProduct)
+        {
+            try
+            {
+                var product = (from x in _db.Products
+                                  where x.IdProduct == idProduct
+                                  select x).FirstOrDefault();
+
+                var productImg = (from x in _db.ProductImages
+                                  where x.ProductId == idProduct
+                                  select x).ToList();
+
+
+
+                if (product != null)
+                {
+                    foreach (var img in productImg)
+                    {
+                        img.IsDelete = true;
+                    }
+                    product.IsDelete = true;
+                    res.Success = true;
+                    res.Message = "Xóa thành công!";
+                    _db.SaveChanges();
+                }
+                else
+                {
+                    res.Message = "Không tìm thấy sản phẩm !";
+                    res.Success = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                res.Success = false;
+                res.Message = ex.Message;
+            }
+            return res;
+        }
+
         public Response GetProducts()
         {
             throw new NotImplementedException();
