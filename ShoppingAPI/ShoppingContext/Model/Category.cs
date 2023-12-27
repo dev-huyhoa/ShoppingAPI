@@ -9,9 +9,10 @@ namespace ShoppingContext.Model
 {
     public class Category
     {
-        public  Guid IdCategory { get; set; } 
+        public  int IdCategory { get; set; } 
         public string Title { get; set; }
         public bool IsDelete { get; set; }
+        public string SubCategory { get; set; }
         public ICollection<Product> Products { get; set; }
     }
 }

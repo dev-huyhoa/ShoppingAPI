@@ -74,6 +74,8 @@ namespace ShoppingContext.Model
             modelBuilder.Entity<Category>(entity =>
             {
                 entity.HasKey(e => e.IdCategory);
+                entity.Property(e => e.SubCategory).IsRequired(false);
+
             });
 
             modelBuilder.Entity<Cart>(entity =>

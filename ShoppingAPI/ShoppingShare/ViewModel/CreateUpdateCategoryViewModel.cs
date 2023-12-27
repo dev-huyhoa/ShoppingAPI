@@ -8,7 +8,7 @@ namespace ShoppingShare.ViewModel
 {
     public class CreateUpdateCategoryViewModel
     {
-        public Guid IdCategory { get; set; }
+        public int IdCategory { get; set; }
         public string Title { get; set; }
     }
 }

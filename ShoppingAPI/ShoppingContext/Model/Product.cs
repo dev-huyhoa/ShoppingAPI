@@ -17,7 +17,7 @@ namespace ShoppingContext.Model
         public bool IsNewArrival { get; set; }
         public bool IsSale { get; set; }
         public bool IsDelete { get; set; }
-        public Guid CategoryId { get; set; }
+        public int CategoryId { get; set; }
         public Category Category { get; set; }
         public ICollection<ProductImage> ProductImages { get; set; }
         public ICollection<OrderDetail> OrderDetails { get; set; }

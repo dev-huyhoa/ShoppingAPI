@@ -38,7 +38,7 @@ namespace ShoppingData.Repositories
             return res;
         }
 
-        public Response DeleteCategory(Guid IdCategory)
+        public Response DeleteCategory(int IdCategory)
         {
             try
             {
@@ -84,7 +84,7 @@ namespace ShoppingData.Repositories
             return res;
         }
 
-        public Response GetCategoryById(Guid IdCategory)
+        public Response GetCategoryById(int IdCategory)
         {
             try
             {

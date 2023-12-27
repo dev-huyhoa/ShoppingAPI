@@ -16,7 +16,7 @@ namespace ShoppingShare.ViewModel.Product
         public bool IsBestseller { get; set; }
         public bool IsNewArrival { get; set; }
         public bool IsSale { get; set; }
-        public Guid CategoryId { get; set; }
+        public int CategoryId { get; set; }
         public string Image { get; set; }
         public int Quantity { get; set; }
         public int IdSize { get; set; }

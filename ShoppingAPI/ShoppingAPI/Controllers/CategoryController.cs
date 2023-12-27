@@ -27,7 +27,7 @@ namespace ShoppingAPI.Controllers
 
         [HttpGet]
         [Route("GetCategoryById")]
-        public object GetCategoryByID(Guid idCategory)
+        public object GetCategoryByID(int idCategory)
         {
             res =  category.GetCategoryById(idCategory);
             return Ok(res);
@@ -51,7 +51,7 @@ namespace ShoppingAPI.Controllers
 
         [HttpDelete]
         [Route("deleteCategory")]
-        public object DeleteCategory(Guid idCategory)
+        public object DeleteCategory(int idCategory)
         {
             res = category.DeleteCategory(idCategory);
             return Ok(res);
