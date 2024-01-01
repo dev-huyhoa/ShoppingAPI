@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using ShoppingContext.Model;
 using ShoppingShare.ViewModel;
 using ShoppingShare.ViewModel.Product;
 using System;
@@ -19,5 +20,7 @@ namespace ShoppingData.Interfaces
         Response UpdateProductImg(ProductViewModel input, ICollection<IFormFile> files);
         Response GetProductImg(Guid idProduct);
         Response DeleteProduct(Guid idProduct);
+        List<ProductCategory> GetProductCategories(int idCategory);
+        ProductCategory GetProductById(Guid id);
     }
 }

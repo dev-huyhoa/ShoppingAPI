@@ -56,7 +56,6 @@ namespace ShoppingAPI.Controllers
         }
 
         [HttpGet]
-
         [Route("getProductImg")]
         public object getProductImg(Guid idProduct)
         {
@@ -71,5 +70,23 @@ namespace ShoppingAPI.Controllers
             res = product.DeleteProduct(idProduct);
             return Ok(res);
         }
+
+        #region Cus
+        [HttpGet]
+        [Route("getProductCategories")]
+        public IActionResult GetProductCategories(int idCategory)
+        {
+            var result = product.GetProductCategories(idCategory);
+            return Ok(result);
+        }
+
+        [HttpGet]
+        [Route("GetProductById")]
+        public IActionResult GetProductById(Guid id)
+        {
+            var result = product.GetProductById(id);
+            return Ok(result);
+        }
+        #endregion
     }
 }

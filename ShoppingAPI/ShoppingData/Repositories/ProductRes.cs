@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Data.SqlClient;
 using ShoppingContext.Model;
 using ShoppingData.Interfaces;
 using ShoppingShare.Ultilities;
 using ShoppingShare.ViewModel;
 using ShoppingShare.ViewModel.Product;
+using System.Data.Common;
+using System.Security.Cryptography.Xml;
 
 namespace ShoppingData.Repositories
 {
@@ -197,9 +200,94 @@ namespace ShoppingData.Repositories
             return res;
         }
 
-        public Response GetProducts()
+
+
+        #region Customer
+        public List<ProductCategory> GetProductCategories(int idCategory)
         {
-            throw new NotImplementedException();
+            var products = new List<ProductCategory>();
+            try
+            {
+
+                var result = (from x in _db.Products
+                              where x.IsDelete == false && x.CategoryId == idCategory
+                              select x).ToList();
+                foreach (var item in result)
+                {
+                    var productItem = new ProductCategory();
+                    productItem.Id = item.IdProduct;
+                    productItem.Title = item.Title;
+                    productItem.Description = item.Description;
+                    productItem.Price = item.Price;
+                    productItem.PriceSale = item.PriceSale;
+                    productItem.Quantity = item.Quantity;
+                    productItem.Discount = item.Discount;
+                    productItem.Category = GetProductCategory(idCategory);
+                    products.Add(productItem);
+                }
+            }
+            catch (Exception ex)
+            {
+                res.Success = false;
+                res.Message = ex.Message;
+            }
+            return products;
+
         }
+
+        public Category GetProductCategory(int id)
+        {
+            var productCategory = new Category();
+
+            try
+            {
+                var result = (from x in _db.Categories
+                              where x.IdCategory == id
+                              select x).ToList();
+                foreach (var item in result)
+                {
+                    productCategory.IdCategory = item.IdCategory;
+                    productCategory.Title = item.Title;
+                    productCategory.SubCategory = item.SubCategory;
+                    productCategory.TitleEN = item.TitleEN;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            return productCategory;
+        }
+
+        public ProductCategory GetProductById(Guid id)
+        {
+            var product = new ProductCategory();
+            try
+            {
+                var result = (from x in _db.Products
+                              where x.IdProduct == id
+                              select x).FirstOrDefault();
+                product.Id = result.IdProduct;
+                product.Title = result.Title;
+                product.Description = result.Description;
+                product.Quantity = result.Quantity;
+                product.Price = result.Price;
+                product.PriceSale = result.PriceSale;
+                product.Discount = result.Discount;
+                var categoryId = result.CategoryId;
+                product.Category = GetProductCategory(categoryId);
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return product;
+        }
+
+
+
+        #endregion
     }
 }

@@ -13,6 +13,7 @@ namespace ShoppingContext.Model
         public string Title { get; set; }
         public bool IsDelete { get; set; }
         public string SubCategory { get; set; }
+        public string TitleEN { get; set; }
         public ICollection<Product> Products { get; set; }
     }
 }

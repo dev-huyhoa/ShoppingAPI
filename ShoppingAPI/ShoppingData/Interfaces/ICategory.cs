@@ -16,5 +16,9 @@ namespace ShoppingData.Interfaces
         Response DeleteCategory(int IdCategory);
         Response GetCategoryById(int IdCategory);
 
+        #region customer
+        List<Category> GetProductCategories();
+        #endregion
+
     }
 }

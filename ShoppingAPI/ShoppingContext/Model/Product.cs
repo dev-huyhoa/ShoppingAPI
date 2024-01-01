@@ -18,6 +18,9 @@ namespace ShoppingContext.Model
         public bool IsSale { get; set; }
         public bool IsDelete { get; set; }
         public int CategoryId { get; set; }
+        public int Quantity { get; set; }
+        public int Discount { get; set; }
+
         public Category Category { get; set; }
         public ICollection<ProductImage> ProductImages { get; set; }
         public ICollection<OrderDetail> OrderDetails { get; set; }

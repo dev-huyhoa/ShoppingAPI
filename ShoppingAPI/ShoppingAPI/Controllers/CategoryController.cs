@@ -57,5 +57,15 @@ namespace ShoppingAPI.Controllers
             return Ok(res);
         }
 
+
+        #region Customer
+        [HttpGet]
+        [Route("GetCategoryList")]
+        public IActionResult GetCategoryList()
+        {
+            var result = category.GetProductCategories();
+            return Ok(result);
+        }
+        #endregion
     }
 }

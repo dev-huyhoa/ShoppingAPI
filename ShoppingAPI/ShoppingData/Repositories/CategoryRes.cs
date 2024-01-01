@@ -1,5 +1,6 @@
 ﻿using ShoppingContext.Model;
 using ShoppingData.Interfaces;
+using ShoppingShare.Ultilities;
 using ShoppingShare.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -25,6 +26,7 @@ namespace ShoppingData.Repositories
             {
                 Category category = new Category();
                 category.Title = input.Title;
+                category.TitleEN = Ultility.ConvertToUnSign(input.Title);
                 _db.Categories.Add(category);
                 _db.SaveChanges();
                 res.Success = true;
@@ -118,6 +120,8 @@ namespace ShoppingData.Repositories
                 else
                 {
                     result.Title = input.Title;
+                    result.TitleEN = Ultility.ConvertToUnSign(input.Title);
+
                     _db.SaveChanges();
                     res.Success = true;
                     res.Message = "Cập nhật thành công";
@@ -130,5 +134,38 @@ namespace ShoppingData.Repositories
             }
             return res;
         }
+
+        #region Customer
+
+        public List<Category> GetProductCategories()
+        {
+            var category = new List<Category>();
+            try
+            {
+                var result = (from x in _db.Categories
+                              select x).ToList();
+
+                foreach (var item in result)
+                {
+                    var categoryItem = new Category();
+                    categoryItem.IdCategory = item.IdCategory;
+                    categoryItem.Title = item.Title;
+                    categoryItem.SubCategory = item.SubCategory;
+                    categoryItem.TitleEN = item.TitleEN;
+                    category.Add(categoryItem);
+                }
+                res.Data = result;
+                res.Success = true;
+
+            }
+            catch (Exception ex)
+            {
+                res.Data = ex.Message;
+                res.Success = false;
+            }
+            return category;
+        }
+
+        #endregion
     }
 }
