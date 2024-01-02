@@ -87,6 +87,14 @@ namespace ShoppingAPI.Controllers
             var result = product.GetProductById(id);
             return Ok(result);
         }
+
+        [HttpGet]
+        [Route("GetProductByIdCate")]
+        public IActionResult GetProductByIdCate(int idCate)
+        {
+            var result = product.GetProducts(idCate);
+            return Ok(result);
+        }
         #endregion
     }
 }

@@ -286,6 +286,37 @@ namespace ShoppingData.Repositories
             return product;
         }
 
+        public List<ProductCategory> GetProducts(int idCategory)
+        {
+            var products = new List<ProductCategory>();
+            try
+            {
+                var result = (from x in _db.Products
+                              where x.CategoryId == idCategory
+                              select x).ToList();
+
+                foreach (var item in result)
+                {
+                    var product = new ProductCategory();
+                    product.Id = item.IdProduct;
+                    product.Title = item.Title;
+                    product.Description = item.Description;
+                    product.Quantity = item.Quantity;
+                    product.Price = item.Price;
+                    product.PriceSale = item.PriceSale;
+                    product.Discount = item.Discount;
+                    var categoryId = item.CategoryId;
+                    product.Category = GetProductCategory(categoryId);
+                    products.Add(product);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return products;
+        }
 
 
         #endregion

@@ -20,7 +20,10 @@ namespace ShoppingData.Interfaces
         Response UpdateProductImg(ProductViewModel input, ICollection<IFormFile> files);
         Response GetProductImg(Guid idProduct);
         Response DeleteProduct(Guid idProduct);
+
+        //cus
         List<ProductCategory> GetProductCategories(int idCategory);
         ProductCategory GetProductById(Guid id);
+        List<ProductCategory> GetProducts(int idCategory);
     }
 }
