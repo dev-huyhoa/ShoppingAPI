@@ -87,7 +87,7 @@ namespace ShoppingData.Repositories
                 product.IdProduct = new Guid();
                 product.Title = input.Title;
                 product.Price = input.Price;
-                product.PriceSale =  (input.Price * 5)/100;
+                product.PriceSale = input.Price;
                 product.Description = input.Description;
                 product.CategoryId = input.CategoryId;
                 _db.Products.Add(product);

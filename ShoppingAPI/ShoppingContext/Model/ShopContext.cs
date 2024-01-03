@@ -24,7 +24,6 @@ namespace ShoppingContext.Model
         public DbSet<ProductImage> ProductImages { get; set; }
         public DbSet<Size> Sizes { get; set; }
         public DbSet<ProductSize> ProductSize{ get; set; }
-        public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<Order> Orders { get; set; }
 
 
@@ -115,16 +114,6 @@ namespace ShoppingContext.Model
                 entity.HasOne(r => r.Category)
             .WithMany(u => u.Products)
             .HasForeignKey(r => r.CategoryId);
-            });
-
-            modelBuilder.Entity<OrderDetail>(entity =>
-            {
-                entity.HasKey(e => e.IdOrderDetail);
-                entity.HasOne(r => r.Order);
-                entity.HasOne(r => r.Product)
-            .WithMany(u => u.OrderDetails)
-            .HasForeignKey(r => r.OrderId)
-            .HasForeignKey(r => r.ProductId);
             });
 
             modelBuilder.Entity<Order>(entity =>

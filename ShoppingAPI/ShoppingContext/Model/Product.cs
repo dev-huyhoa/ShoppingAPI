@@ -23,7 +23,6 @@ namespace ShoppingContext.Model
 
         public Category Category { get; set; }
         public ICollection<ProductImage> ProductImages { get; set; }
-        public ICollection<OrderDetail> OrderDetails { get; set; }
         public ICollection<ProductSize> ProductSizes { get; set; }
     }
 }

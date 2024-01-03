@@ -66,5 +66,15 @@ namespace ShoppingAPI.Controllers
             res = customer.GetListCusDeleted();
             return Ok(res);
         }
+
+
+        [HttpPost]
+        [Route("LoginUser")]
+        public IActionResult LoginUser([FromBody] Customer cus)
+        {
+            var token = customer.CustomerLogin(cus.Email, cus.PassWord);
+            if (token == "") token = "invalid";
+            return Ok(token);
+        }
     }
 }

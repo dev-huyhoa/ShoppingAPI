@@ -16,5 +16,7 @@ namespace ShoppingData.Interfaces
         Response DeleteCustomer(Guid IdCustomer);
         Response SendPassCus(string email, string subject);
         Response GetListCusDeleted();
+
+        string CustomerLogin(string email, string password);
     }
 }

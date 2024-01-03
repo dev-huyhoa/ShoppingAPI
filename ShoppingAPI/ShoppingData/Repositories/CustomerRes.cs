@@ -1,10 +1,16 @@
-﻿using ShoppingContext.Model;
+﻿using Microsoft.EntityFrameworkCore.Internal;
+using Microsoft.IdentityModel.Tokens;
+using ShoppingContext.Model;
 using ShoppingData.Interfaces;
 using ShoppingShare.Ultilities;
 using ShoppingShare.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -184,5 +190,66 @@ namespace ShoppingData.Repositories
             }
             return res;
         }
+
+
+        #region customer
+        public string CustomerLogin(string email, string password)
+        {
+            Customer customer = new Customer();
+            try
+            {
+                var result = (from x in _db.Customers
+                              where x.Email == email && x.PassWord == password
+                              select x);
+                int count = result.Count();
+                if (count == 0)
+                {
+                    return "";
+                }
+
+                var querry = (from x in _db.Customers
+                              where x.Email == email && x.PassWord == password
+                              select x).FirstOrDefault();
+                customer.IdCustomer = querry.IdCustomer;
+                customer.NameCustomer = querry.NameCustomer;
+                customer.Address = querry.Address;
+                customer.Phone = querry.Phone;
+                customer.PassWord = querry.PassWord;
+                customer.CreateDate = querry.CreateDate;
+                customer.BirthDay = querry.BirthDay;
+                customer.Email = querry.Email;
+
+                string key = "MNU66iBl3T5rh6H52i69";
+                string duration = "60";
+                var symmetrickey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
+                var credentials = new SigningCredentials(symmetrickey, SecurityAlgorithms.HmacSha256);
+
+                var claims = new[]
+     {
+                    new Claim("id", customer.IdCustomer.ToString()),
+                    new Claim("name", customer.NameCustomer),
+                    new Claim("address", customer.Address),
+                    new Claim("mobile",  customer.Phone),
+                    new Claim("email", customer.Email)
+                };
+
+
+                var jwtToken = new JwtSecurityToken(
+                    issuer: "localhost",
+                    audience: "localhost",
+                    claims: claims,
+                    expires: DateTime.Now.AddMinutes(Int32.Parse(duration)),
+                    signingCredentials: credentials);
+
+                return new JwtSecurityTokenHandler().WriteToken(jwtToken);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        #endregion
+
     }
 }

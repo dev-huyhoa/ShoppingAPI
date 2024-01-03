@@ -11,11 +11,11 @@ namespace ShoppingContext.Model
         public Guid IdOrder { get; set; }
         public Guid CustomerId { get; set; }
         public Customer Customer { get; set; }
-        public decimal Total { get; set; }
-        public DateTime Date { get; set; }
-        public decimal ShippingFee { get; set; }
-        public string Status { get; set; }
+        public decimal Total { get; set; } = 0;
+        public DateTime CreateAt { get; set; }
+        public int IdPayment { get; set; }
+        public Guid CartId { get; set; }
         public bool IsDelete { get; set; }
-        public ICollection<OrderDetail> OrderDetails { get; set; }
+
     }
 }

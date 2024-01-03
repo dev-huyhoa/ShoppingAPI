@@ -9,6 +9,9 @@ namespace ShoppingContext.Model
     public class Cart
     {
         public Guid IdCart { get; set; } 
+        public DateTime OrderedOn { get; set; }
+        public Guid CustomerId { get;set; }
+        public bool Ordered { get; set; }
         public bool IsDelete { get; set; }
     }
 }

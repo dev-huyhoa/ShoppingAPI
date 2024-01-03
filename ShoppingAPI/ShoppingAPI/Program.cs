@@ -17,6 +17,7 @@ builder.Services.AddScoped<IEmployee, EmployeeRes>();
 builder.Services.AddScoped<IRole, RoleRes>();
 builder.Services.AddScoped<ICategory, CategoryRes>();
 builder.Services.AddScoped<IProduct, ProductRes>();
+builder.Services.AddScoped<ICart, CartRes>();
 
 // Configure JWT Authentication
 var key = builder.Configuration["SecretKey:Key"];
