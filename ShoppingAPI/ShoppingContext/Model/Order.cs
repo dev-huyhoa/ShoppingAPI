@@ -8,7 +8,7 @@ namespace ShoppingContext.Model
 {
     public class Order
     {
-        public Guid IdOrder { get; set; }
+        public int IdOrder { get; set; }
         public Guid CustomerId { get; set; }
         public Customer Customer { get; set; }
         public decimal Total { get; set; } = 0;

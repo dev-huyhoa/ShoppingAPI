@@ -2,11 +2,17 @@
 using ShoppingContext.Model;
 using ShoppingData.Interfaces;
 using ShoppingShare.ViewModel;
+using ShoppingShare.ViewModel.Order;
+using ShoppingShare.ViewModel.Payment;
+using ShoppingShare.ViewModel.Role;
 
 namespace ShoppingAPI.Controllers
 {
+
     [Route("api/[Controller]")]
-    public class PaymentController : Controller
+    [ApiController]
+
+    public class PaymentController : ControllerBase
     {
         public IPayment payment;
         public Response res;
@@ -16,20 +22,31 @@ namespace ShoppingAPI.Controllers
             payment = _payment;
             res = new Response();
         }
-        [HttpPost]
-        [Route("createPayment")]
-        public object CreatePayMent(CreatePaymentViewModel model)
-        {
-            res = payment.CreatePayment(model);
-            return Ok(res);
-        }
 
         [HttpGet]
-        [Route("listPayment")]
-        public object GetsPayment()
+        [Route("GetPaymentMethods")]
+        public IActionResult GetPaymentMethods()
         {
-            res = payment.GetPayment();
-            return Ok(res);
+            var result = payment.GetPaymentMethods();
+            return Ok(result);
+        }
+
+        [HttpPost]
+        [Route("InsertPayment")]
+        public IActionResult InsertPayment(PaymentViewModel paymentViewModel)
+        {
+
+            var id = payment.InsertPayment(paymentViewModel);
+            return Ok(id.ToString());
+        }
+
+        //Order
+        [HttpPost]
+        [Route("InsertOrder")]
+        public IActionResult InsertOrder(OrderViewModel orderViewModel)
+        {
+            var id = payment.InsertOrder(orderViewModel);
+            return Ok(id.ToString());
         }
     }
 }

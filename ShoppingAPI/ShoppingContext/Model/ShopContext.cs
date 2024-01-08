@@ -25,7 +25,8 @@ namespace ShoppingContext.Model
         public DbSet<Size> Sizes { get; set; }
         public DbSet<ProductSize> ProductSize{ get; set; }
         public DbSet<Order> Orders { get; set; }
-
+        public DbSet<CartItem> CartItems { get; set; }
+        public DbSet<PaymentMethod> PaymentMethods { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -67,9 +68,12 @@ namespace ShoppingContext.Model
 
             modelBuilder.Entity<Payment>(entity =>
             {
-                entity.HasKey(e => e.IdPayment);
+                entity.HasKey(e => e.Id);
             });
-
+            modelBuilder.Entity<PaymentMethod>(entity =>
+            {
+                entity.HasKey(e => e.IdPaymentMethod);
+            });
             modelBuilder.Entity<Category>(entity =>
             {
                 entity.HasKey(e => e.IdCategory);
@@ -122,6 +126,11 @@ namespace ShoppingContext.Model
                 entity.HasOne(r => r.Customer)
              .WithMany(u => u.Orders)
             .HasForeignKey(r => r.CustomerId);
+            });
+
+            modelBuilder.Entity<CartItem>(entity =>
+            {
+                entity.HasKey(e => e.CartItemId);
             });
 
         }

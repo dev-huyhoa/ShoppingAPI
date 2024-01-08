@@ -13,5 +13,6 @@ namespace ShoppingContext.Model
         public Guid CustomerId { get;set; }
         public bool Ordered { get; set; }
         public bool IsDelete { get; set; }
+
     }
 }

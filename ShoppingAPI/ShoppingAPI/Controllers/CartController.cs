@@ -1,11 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using ShoppingContext.Model;
 using ShoppingData.Interfaces;
 using ShoppingShare.ViewModel;
-using ShoppingShare.ViewModel.Product;
 
 namespace ShoppingAPI.Controllers
 {
@@ -23,12 +19,27 @@ namespace ShoppingAPI.Controllers
         }
 
         [HttpPost]
-        [Authorize]
         [Route("insertCartItem")]
         public IActionResult Create(Guid idCustomer, Guid idProduct)
         {
             var result = cart.InsertCartItem(idCustomer, idProduct);
-            return Ok(result ? "Thêm Thành Công" : "Có Lỗi Xảy Ra");
+            return Ok(result ? "inserted" : "not inserted");
+        }
+
+        [HttpGet]
+        [Route("getActiveCartOfUser")]
+        public IActionResult GetActiveCartOfUser(Guid idCustomer)
+        {
+            var result = cart.GetActiveCartOfUser(idCustomer);
+            return Ok(result);
+        }
+
+        [HttpGet]
+        [Route("getAllPreviousCartsOfUser")]
+        public IActionResult GetAllPreviousCartsOfUser(Guid idCustomer)
+        {
+            var result = cart.GetAllPreviousCartsOfUser(idCustomer);
+            return Ok(result);
         }
     }
 }

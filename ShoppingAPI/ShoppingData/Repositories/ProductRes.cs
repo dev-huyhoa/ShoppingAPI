@@ -235,9 +235,9 @@ namespace ShoppingData.Repositories
 
         }
 
-        public Category GetProductCategory(int id)
+        public CategoryViewModel GetProductCategory(int id)
         {
-            var productCategory = new Category();
+            var productCategory = new CategoryViewModel();
 
             try
             {

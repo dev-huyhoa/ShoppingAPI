@@ -1,4 +1,7 @@
-﻿using ShoppingShare.ViewModel;
+﻿using ShoppingContext.Model;
+using ShoppingShare.ViewModel;
+using ShoppingShare.ViewModel.Order;
+using ShoppingShare.ViewModel.Payment;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +12,8 @@ namespace ShoppingData.Interfaces
 {
     public interface IPayment
     {
-        Response GetPayment();
-        Response CreatePayment(CreatePaymentViewModel input);
+        List<PaymentMethod> GetPaymentMethods();
+        int InsertPayment(PaymentViewModel payment);
+        int InsertOrder(OrderViewModel input);
     }
 }

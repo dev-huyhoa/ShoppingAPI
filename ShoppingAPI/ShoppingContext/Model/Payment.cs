@@ -8,8 +8,13 @@ namespace ShoppingContext.Model
 {
     public class Payment
     {
-        public int IdPayment { get; set; }
-        public string Name { get; set; }
-        public bool IsDelete { get; set; }
+        public int Id { get; set; }
+        public Guid CustomerId { get; set; }
+        public int PaymentMethodId { get; set; }
+        public int TotalAmount {  get; set; }
+        public int ShippingCharges { get; set; }
+        public int AmoutReduced { get; set; }
+        public int AmountPaid { get; set; }
+        public DateTime CreateAt { get; set; }
     }
 }

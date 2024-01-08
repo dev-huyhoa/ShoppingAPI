@@ -227,10 +227,12 @@ namespace ShoppingData.Repositories
                 var claims = new[]
      {
                     new Claim("id", customer.IdCustomer.ToString()),
-                    new Claim("name", customer.NameCustomer),
+                    new Claim("lastName", customer.NameCustomer),
                     new Claim("address", customer.Address),
                     new Claim("mobile",  customer.Phone),
-                    new Claim("email", customer.Email)
+                    new Claim("email", customer.Email),
+                    new Claim("password", customer.PassWord)
+
                 };
 
 
