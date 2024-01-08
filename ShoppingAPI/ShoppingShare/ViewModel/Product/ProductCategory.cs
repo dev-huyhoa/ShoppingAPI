@@ -12,7 +12,7 @@ namespace ShoppingShare.ViewModel.Product
         public Guid Id { get; set; }
         public string Title { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
-        public Category Category { get; set; } = new Category();
+        public CategoryViewModel Category { get; set; } = new CategoryViewModel();
         public decimal Price { get; set; }
         public decimal PriceSale { get; set; }
         public int Discount { get; set; }
