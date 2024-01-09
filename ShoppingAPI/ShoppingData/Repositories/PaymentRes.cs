@@ -21,6 +21,42 @@ namespace ShoppingData.Repositories
             res = new Response();
         }
 
+        public Response GetPaymentOrder()
+        {
+            try
+            {
+                var result = (from x in _db.Payments
+                              where x.Status == false
+                              select x).ToList();
+                res.Data = result;
+                res.Success = true;
+            }
+            catch (Exception ex)
+            {
+                res.Success = false;
+                res.Message = ex.Message;
+            }
+            return res;
+        }
+        public Response GetPaymentOrderByCus(Guid idCustomer)
+        {
+            try
+            {
+                var result = (from x in _db.Payments
+                              where x.Status == false && x.CustomerId == idCustomer
+                              select x).ToList();
+                res.Data = result;
+                res.Success = true;
+            }
+            catch (Exception ex)
+            {
+                res.Success = false;
+                res.Message = ex.Message;
+            }
+            return res;
+        }
+
+        // customer
         public List<PaymentMethod> GetPaymentMethods()
         {
             var payment = new List<PaymentMethod>();

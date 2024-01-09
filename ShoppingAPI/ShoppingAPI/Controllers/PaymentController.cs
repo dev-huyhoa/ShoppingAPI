@@ -24,6 +24,23 @@ namespace ShoppingAPI.Controllers
         }
 
         [HttpGet]
+        [Route("GetPaymentOrder")]
+        public object GetPaymentOrder()
+        {
+            res = payment.GetPaymentOrder();
+            return Ok(res);
+        }
+
+
+        [HttpGet]
+        [Route("GetPaymentOrderByCus")]
+        public object GetPaymentOrderByCus(Guid idCustomer)
+        {
+            res = payment.GetPaymentOrderByCus(idCustomer);
+            return Ok(res);
+        }
+
+        [HttpGet]
         [Route("GetPaymentMethods")]
         public IActionResult GetPaymentMethods()
         {

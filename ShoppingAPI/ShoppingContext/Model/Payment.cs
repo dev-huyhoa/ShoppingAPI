@@ -16,5 +16,6 @@ namespace ShoppingContext.Model
         public int AmoutReduced { get; set; }
         public int AmountPaid { get; set; }
         public DateTime CreateAt { get; set; }
+        public bool Status { get; set; }
     }
 }
