@@ -79,6 +79,12 @@ namespace ShoppingData.Repositories
                               where x.CustomerId == customerId && x.Ordered == false
                               select x).FirstOrDefault();
 
+                if (querry == null)
+                {
+                    return cart;
+                }
+
+
                 var cartItem = (from x in _db.CartItems
                                 where x.IdCart == querry.IdCart
                                 select x).ToList();
@@ -185,11 +191,13 @@ namespace ShoppingData.Repositories
             {
                 var result = (from x in _db.Carts
                               where x.CustomerId == idCustomer && x.Ordered == true
-                              select x).FirstOrDefault();
+                              select x).ToList();
                 if (result != null)
                 {
-                    carts.Add(GetCart(result.IdCart));
-
+                    foreach (var item in result)
+                    {
+                        carts.Add(GetCart(item.IdCart));
+                    }
                 }
             }
             catch (Exception)

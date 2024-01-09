@@ -56,11 +56,11 @@ namespace ShoppingData.Repositories
             try
             {
                 Payment pay = new Payment();
-                pay.PaymentMethodId = pay.PaymentMethodId;
-                pay.CustomerId = pay.CustomerId;
+                pay.PaymentMethodId = payment.PaymentMethod.IdPaymentMethod;
+                pay.CustomerId = payment.User.Id;
                 pay.TotalAmount = payment.TotalAmount;
                 pay.ShippingCharges = payment.ShipingCharges;
-                pay.AmoutReduced = pay.AmoutReduced;
+                pay.AmoutReduced = payment.AmountReduced;
                 pay.AmountPaid = payment.AmountPaid;
                 pay.CreateAt = DateTime.Now;
                 _db.Add(pay);
@@ -82,7 +82,7 @@ namespace ShoppingData.Repositories
             int value = 0;
             try
             {
-
+                 
                 Order order = new Order();
                 order.CustomerId = input.User.Id;
                 order.CartId = input.Cart.Id;
