@@ -13,8 +13,7 @@ namespace ShoppingData.Interfaces
     public interface IPayment
     {
         Response GetPaymentOrder();
-        Response GetPaymentOrderByCus(Guid idCustomer);
-
+        Response UpdateStatusPayment(int idPayment, bool statusPM);
         // customer
         List<PaymentMethod> GetPaymentMethods();
         int InsertPayment(PaymentViewModel payment);

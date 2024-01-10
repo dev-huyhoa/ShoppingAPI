@@ -24,6 +24,14 @@ namespace ShoppingAPI.Controllers
         }
 
         [HttpGet]
+        [Route("UpdateStatusPayment")]
+        public object UpdateStatusPayment(int idPayment, bool status)
+        {
+            res = payment.UpdateStatusPayment(idPayment, status);
+            return Ok(res);
+        }
+
+        [HttpGet]
         [Route("GetPaymentOrder")]
         public object GetPaymentOrder()
         {
@@ -31,14 +39,6 @@ namespace ShoppingAPI.Controllers
             return Ok(res);
         }
 
-
-        [HttpGet]
-        [Route("GetPaymentOrderByCus")]
-        public object GetPaymentOrderByCus(Guid idCustomer)
-        {
-            res = payment.GetPaymentOrderByCus(idCustomer);
-            return Ok(res);
-        }
 
         [HttpGet]
         [Route("GetPaymentMethods")]

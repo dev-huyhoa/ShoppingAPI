@@ -38,14 +38,25 @@ namespace ShoppingData.Repositories
             }
             return res;
         }
-        public Response GetPaymentOrderByCus(Guid idCustomer)
+
+        public Response UpdateStatusPayment(int idPayment, bool statusPM)
         {
             try
             {
                 var result = (from x in _db.Payments
-                              where x.Status == false && x.CustomerId == idCustomer
-                              select x).ToList();
-                res.Data = result;
+                              where x.Id == idPayment
+                              select x).FirstOrDefault();
+                if (result != null)
+                {
+                    res.Message = "Update đơn hành thành công";
+                    result.Status = statusPM;
+                    _db.SaveChanges();
+                }
+                else
+                {
+                    res.Success = false;
+                    res.Message = "Không tìm thấy đơn hàng";
+                }
                 res.Success = true;
             }
             catch (Exception ex)
