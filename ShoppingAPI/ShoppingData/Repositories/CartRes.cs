@@ -216,14 +216,17 @@ namespace ShoppingData.Repositories
             {
                 var result = (from x in _db.CartItems
                               where x.IdCart == cartId
-                              select x).FirstOrDefault();
-             
-                    CartItemViewModel item = new()
+                              select x).ToList();
+                foreach (var item in result)
+                {
+                    CartItemViewModel itemcart = new()
                     {
-                        Id = result.CartItemId,
-                        Product = GetProduct(result.ProductId)
+                        Id = item.CartItemId,
+                        Product = GetProduct(item.ProductId)
                     };
-                    cart.CartItems.Add(item);
+                    cart.CartItems.Add(itemcart);
+                }
+         
 
                 var querry = (from x in _db.Carts
                               where x.IdCart == cartId
